@@ -23,10 +23,10 @@ public class EmailSenderMissions
 * Setup dashboard code
 ```csharp
 // If you use ASP .NET Core
-services.AddHangfire(configuration => configuration.UseMissionControl());
+services.AddHangfire(configuration => configuration.UseMissionControl(typeof(EmailSenderMissions).Assembly));
 
 // If you use console application
-GlobalConfiguration.Configuration.UseMissionControl();
+GlobalConfiguration.Configuration.UseMissionControl(typeof(EmailSenderMissions).Assembly);
 ```
 
 ## License
