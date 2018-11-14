@@ -1,0 +1,29 @@
+﻿using System.Collections.Generic;
+using Hangfire.Dashboard;
+using Hangfire.MemoryStorage;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Hangfire.MissionControl.Tests.Web
+{
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+            services.AddHangfire(configuration =>
+            {
+                configuration.UseMemoryStorage();
+                configuration.UseMissionControl(typeof(Startup).Assembly);
+            });
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseHangfireServer();
+            app.UseHangfireDashboard("", new DashboardOptions { Authorization = new List<IDashboardAuthorizationFilter>() });
+        }
+    }
+}

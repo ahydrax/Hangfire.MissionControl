@@ -1,0 +1,62 @@
+﻿@* Generator: Template TypeVisibility: Internal GeneratePrettyNames: True *@
+@using System.Linq
+@using Hangfire.Dashboard.Pages
+@using Hangfire.MissionControl
+@using Hangfire.MissionControl.Dashboard.Pages
+@using Hangfire.MissionControl.Dashboard.Pages.Controls
+@inherits Hangfire.Dashboard.RazorPage
+@{
+    string selectedCategory = this.SelectedCategory;
+    MissionMap missionMap = this.MissionMap;
+    Layout = new LayoutPage(Title);
+    var availableMissions = missionMap.Missions.Where(x => x.Value.CategoryName == selectedCategory).Select(x => x.Value).ToArray();
+}
+
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/cssstyles")" />
+<script>
+    var baseUrl = "@Url.To("/mission/launch")";
+</script>
+<script type="text/javascript" src="@Url.To("/mission-control/jspage")"></script>
+
+<div class="row">
+    <div class="col-md-3">
+        @CategoriesSidebar.Render(Html, selectedCategory, missionMap)
+    </div>
+    <div class="col-md-9">
+        <h1 class="page-header">@selectedCategory</h1>
+        @foreach (var mission in availableMissions)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@mission.Name</h3>
+                </div>
+                <div class="panel-body">
+                    @if (!string.IsNullOrWhiteSpace(mission.Description))
+                    {
+                        <p>@mission.Description</p>
+                    }
+
+                    <form id="@mission.Id">
+                        <input type="hidden" name="@Mission.IdField" value="@mission.Id"/>
+
+                        @foreach (var parameter in mission.MethodInfo.GetParameters())
+                        {
+                            var control = ControlFactory.CreateControl(parameter, mission);
+                            if (control is NullControl)
+                            {
+                                continue;
+                            }
+
+                            <div class="form-group">
+                                @Html.RenderPartial(control)
+                            </div>
+                        }
+
+                        <button type="button" class="btn btn-info" onclick="onMissionStart(event, '#@mission.Id');return false;">Enqueue</button>
+                    </form>
+                </div>
+                <div id="@mission.Id-alerts" class="panel-footer"></div>
+            </div>
+        }
+    </div>
+</div>

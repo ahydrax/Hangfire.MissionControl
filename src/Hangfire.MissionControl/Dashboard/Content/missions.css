@@ -1,0 +1,21 @@
+﻿#categories .list-group-item {
+    border-color: #e7e7e7;
+    background-color: #f8f8f8;
+}
+
+#categories a.list-group-item {
+    color: #777;
+}
+
+    #categories a.list-group-item:hover,
+    #categories a.list-group-item:focus {
+        color: #333;
+    }
+
+#categories .list-group-item.active,
+#categories .list-group-item.active:hover,
+#categories .list-group-item.active:focus {
+    color: #555;
+    background-color: #e7e7e7;
+    border-color: #e7e7e7;
+}
