@@ -12,6 +12,11 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.3</Version>
     <PackageTags>hangfire manual jobs</PackageTags>
+    <Authors>Viktor Svyatokha (@ahydrax)</Authors>
+    <PackageProjectUrl>https://github.com/ahydrax/Hangfire.MissionControl</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/ahydrax/Hangfire.MissionControl/blob/master/LICENSE</PackageLicenseUrl>
+    <Copyright>Viktor Svyatokha (@ahydrax)</Copyright>
+    <RepositoryUrl>https://github.com/ahydrax/Hangfire.MissionControl</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
