@@ -14,6 +14,7 @@ namespace Hangfire.MissionControl
 
             MissionCategories = missions.Values
                 .GroupBy(x => x.CategoryName)
+                .OrderBy(x => x.Key)
                 .ToDictionary(x => x.Key, x => x.Count());
         }
     }

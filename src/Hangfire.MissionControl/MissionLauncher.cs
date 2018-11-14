@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Hangfire.Common;
@@ -20,13 +21,19 @@ namespace Hangfire.MissionControl
 
         public async Task Dispatch(DashboardContext context)
         {
+            if (!"POST".Equals(context.Request.Method, StringComparison.InvariantCultureIgnoreCase))
+            {
+                context.Response.StatusCode = 405;
+                return;
+            }
+
             try
             {
                 var missionId = context.Request.GetQuery(Mission.IdField);
 
                 var mission = MissionMap.Missions[missionId];
 
-                var parameters = CreateParameters(context, mission.MethodInfo);
+                var parameters = await CreateParameters(context, mission.MethodInfo);
                 var jobId = context.GetBackgroundJobClient().Create(new Job(mission.MethodInfo, parameters), new EnqueuedState());
 
                 context.Response.StatusCode = 200;
@@ -39,14 +46,14 @@ namespace Hangfire.MissionControl
             }
         }
 
-        private static object[] CreateParameters(DashboardContext context, MethodInfo methodInfo)
+        private static async Task<object[]> CreateParameters(DashboardContext context, MethodInfo methodInfo)
         {
             var result = new List<object>();
 
             foreach (var parameter in methodInfo.GetParameters())
             {
                 var parameterType = parameter.ParameterType;
-                var parameterValue = context.Request.GetQuery(parameter.Name);
+                var parameterValue = (await context.Request.GetFormValuesAsync(parameter.Name)).FirstOrDefault();
 
                 if (parameterType == typeof(string))
                 {

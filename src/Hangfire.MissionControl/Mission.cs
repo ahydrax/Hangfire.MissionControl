@@ -7,7 +7,7 @@ namespace Hangfire.MissionControl
 {
     internal sealed class Mission
     {
-        public const string IdField = "__id";
+        public const string IdField = "__mission__id";
         public string Id { get; }
         public string CategoryName { get; }
         public string Name { get; }
@@ -29,7 +29,7 @@ namespace Hangfire.MissionControl
         {
             var id = GenerateSignature(methodInfo);
 
-            using (var crypt = new SHA256Managed())
+            using (var crypt = new SHA1Managed())
             {
                 var hashStringBuilder = new StringBuilder();
                 var hash = crypt.ComputeHash(Encoding.ASCII.GetBytes(id));

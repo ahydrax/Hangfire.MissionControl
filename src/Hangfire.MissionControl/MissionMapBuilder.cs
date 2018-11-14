@@ -14,8 +14,12 @@ namespace Hangfire.MissionControl
                 .Where(x => x.GetCustomAttribute<MissionLauncherAttribute>() != null)
                 .ToArray();
             
-            var missions = LookupForMission(targetTypes).ToDictionary(x => x.Id, x => x);
-            if (missions.Count == 0) throw new InvalidOperationException("No missions were found.");
+            var missions = LookupForMission(targetTypes)
+                .OrderBy(x => x.Name)
+                .ToDictionary(x => x.Id, x => x);
+
+            if (missions.Count == 0) 
+                throw new InvalidOperationException("No missions were found.");
             
             return new MissionMap(missions);
         }
