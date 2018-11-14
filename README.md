@@ -1,5 +1,5 @@
 # Hangfire.MissionControl
-
+[![NuGet](https://img.shields.io/nuget/v/Hangfire.MissionControl.svg)](https://www.nuget.org/packages/Hangfire.MissionControl/)
 ![dashboard](content/dashboard.png)
 
 A plugin for Hangfire that enables you to launch jobs manually.
@@ -8,11 +8,25 @@ Read about hangfire here: https://github.com/HangfireIO/Hangfire#hangfire-
 and here: http://hangfire.io/
 
 ## Instructions
-NuGet package will be deployed later.
-
-Setup your dashboard code:
+* Install NuGet package
+* Decorate your code with attributes *(all parameters are optional)*
 ```csharp
+[MissionLauncher(CategoryName = "Emails")]
+public class EmailSenderMissions
+{
+    [Mission(Name = "Send email", 
+        Description = "Send email to customer", 
+        Queue = "emails")]
+    public string SendEmail(int customerId, string displayName) => //...code;
+}
+```
+* Setup dashboard code
+```csharp
+// If you use ASP .NET Core
 services.AddHangfire(configuration => configuration.UseMissionControl());
+
+// If you use console application
+GlobalConfiguration.Configuration.UseMissionControl();
 ```
 
 ## License
