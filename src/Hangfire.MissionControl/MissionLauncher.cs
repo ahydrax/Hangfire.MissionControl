@@ -56,11 +56,22 @@ namespace Hangfire.MissionControl
                 var parameterType = parameter.ParameterType;
                 var parameterValue = (await context.Request.GetFormValuesAsync(parameter.Name)).LastOrDefault();
 
-
                 switch (parameterValue)
                 {
                     case string stringValue when parameterType == typeof(string):
                         result.Add(stringValue);
+                        break;
+
+                    case string dateTimeValue when parameterType == typeof(DateTime):
+                        var parsed = DateTime.TryParse(dateTimeValue, out var dateTime);
+                        if (parsed)
+                        {
+                            result.Add(dateTime);
+                        }
+                        else
+                        {
+                            missingFields.Add(parameter.Name);
+                        }
                         break;
 
                     case string primitiveValue when !string.IsNullOrWhiteSpace(parameterValue):
