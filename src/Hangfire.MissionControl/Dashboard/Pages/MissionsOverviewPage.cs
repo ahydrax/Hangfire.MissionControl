@@ -7,11 +7,13 @@
 
         public string SelectedCategory { get; }
         public MissionMap MissionMap { get; }
+        public MissionControlOptions Options { get; }
 
-        public MissionsOverviewPage(string selectedCategory, MissionMap missionMap)
+        public MissionsOverviewPage(string selectedCategory, MissionMap missionMap, MissionControlOptions options)
         {
             SelectedCategory = selectedCategory;
             MissionMap = missionMap;
+            Options = options;
         }
     }
 }

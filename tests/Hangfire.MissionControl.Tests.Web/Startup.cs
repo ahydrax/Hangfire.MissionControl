@@ -15,7 +15,7 @@ namespace Hangfire.MissionControl.Tests.Web
             services.AddHangfire(configuration =>
             {
                 configuration.UseMemoryStorage();
-                configuration.UseMissionControl(typeof(Startup).Assembly);
+                configuration.UseMissionControl(new MissionControlOptions { RequireConfirmation = false }, typeof(Startup).Assembly);
             });
         }
 

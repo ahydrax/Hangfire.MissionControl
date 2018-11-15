@@ -14,16 +14,24 @@ namespace Hangfire.MissionControl
         public static IGlobalConfiguration UseMissionControl(
             this IGlobalConfiguration configuration,
             params Assembly[] missionAssemblies)
+            => configuration.UseMissionControl(new MissionControlOptions { RequireConfirmation = true }, missionAssemblies);
+
+        [PublicAPI]
+        public static IGlobalConfiguration UseMissionControl(
+            this IGlobalConfiguration configuration,
+            MissionControlOptions options,
+            params Assembly[] missionAssemblies)
         {
             var map = MissionMapBuilder.BuildMap(missionAssemblies);
 
-            DashboardRoutes.Routes.AddRazorPage("/missions", x => new MissionsOverviewPage(map.MissionCategories.First().Key, map));
-            DashboardRoutes.Routes.AddRazorPage("/missions/(?<categoryId>.+)", x => new MissionsOverviewPage(x.Groups["categoryId"].Value, map));
+            DashboardRoutes.Routes.AddRazorPage("/missions", x => new MissionsOverviewPage(map.MissionCategories.First().Key, map, options));
+            DashboardRoutes.Routes.AddRazorPage("/missions/(?<categoryId>.+)", x => new MissionsOverviewPage(x.Groups["categoryId"].Value, map, options));
             DashboardRoutes.Routes.Add("/mission/launch", new MissionLauncher(map));
 
             NavigationMenu.Items.Add(page => new MenuItem(MissionsOverviewPage.Title, page.Url.To(MissionsOverviewPage.PageRoute))
             {
-                Active = page.RequestPath.StartsWith(MissionsOverviewPage.PageRoute)
+                Active = page.RequestPath.StartsWith(MissionsOverviewPage.PageRoute),
+                Metric = new DashboardMetric("missions-count", x => new Metric(map.Missions.Count))
             });
 
             DashboardRoutes.Routes.Add(
