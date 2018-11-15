@@ -15,7 +15,7 @@ namespace Hangfire.MissionControl.Tests.Web
         public string DoJob(byte byteValue) => "success";
 
         [Mission]
-        public string DoJob(int  intValue) => "success";
+        public string DoJob(int intValue) => "success";
 
         [Mission]
         public string DoJob(long longValue) => "success";
@@ -38,6 +38,10 @@ namespace Hangfire.MissionControl.Tests.Web
 
         [Mission(Name = "Mission #2", Description = "This is very important mission")]
         public static string DoAnotherJob(double value) => "success2";
+
+        [Mission(Name = "Mission #3", Description = "This is very important mission")]
+        public static string DoAnotherJob(
+            [MissionParam(Description = "Customer name", DefaultValue = "Jack")] string customerName) => "success2";
     }
 
     [MissionLauncher(CategoryName = "Queueing")]
