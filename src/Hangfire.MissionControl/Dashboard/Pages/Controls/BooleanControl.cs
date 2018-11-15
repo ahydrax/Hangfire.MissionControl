@@ -15,6 +15,7 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
         public override void Execute()
         {
             WriteLiteral("<div class=\"checkbox\">");
+            WriteLiteral($"<input type=\"hidden\" value=\"false\" name=\"{Parameter.Name}\">");
             WriteLiteral($"<label><input type=\"checkbox\" name=\"{Parameter.Name}\" value=\"true\">{Parameter.Name}</input></label>");
             WriteLiteral("</div>");
         }

@@ -49,36 +49,34 @@ namespace Hangfire.MissionControl
         private static async Task<object[]> CreateParameters(DashboardContext context, MethodInfo methodInfo)
         {
             var result = new List<object>();
+            var missingFields = new List<string>();
 
             foreach (var parameter in methodInfo.GetParameters())
             {
                 var parameterType = parameter.ParameterType;
-                var parameterValue = (await context.Request.GetFormValuesAsync(parameter.Name)).FirstOrDefault();
+                var parameterValue = (await context.Request.GetFormValuesAsync(parameter.Name)).LastOrDefault();
 
-                if (parameterType == typeof(string))
+
+                switch (parameterValue)
                 {
-                    result.Add(parameterValue ?? string.Empty);
-                }
-                else if (string.IsNullOrEmpty(parameterValue))
-                {
-                    result.Add(GetDefaultValue(parameterType));
-                }
-                else
-                {
-                    result.Add(JsonConvert.DeserializeObject(parameterValue, parameterType));
+                    case string stringValue when parameterType == typeof(string):
+                        result.Add(stringValue);
+                        break;
+
+                    case string primitiveValue when !string.IsNullOrWhiteSpace(parameterValue):
+                        result.Add(JsonConvert.DeserializeObject(primitiveValue, parameterType));
+                        break;
+
+                    default:
+                        missingFields.Add(parameter.Name);
+                        continue;
                 }
             }
+
+            if (missingFields.Count > 0)
+                throw new InvalidOperationException($"Fields are missing: {string.Join(",", missingFields)}");
 
             return result.ToArray();
-        }
-
-        private static object GetDefaultValue(Type targetType)
-        {
-            if (targetType.IsValueType)
-            {
-                return Activator.CreateInstance(targetType);
-            }
-            return null;
         }
     }
 }
