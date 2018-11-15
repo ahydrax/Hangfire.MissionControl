@@ -7,7 +7,7 @@ namespace Hangfire.MissionControl
 {
     internal sealed class Mission
     {
-        public const string IdField = "__mission__id";
+        public const string IdField = "id";
         public string Id { get; }
         public string CategoryName { get; }
         public string Name { get; }
@@ -45,7 +45,7 @@ namespace Hangfire.MissionControl
         {
             var declaringType = methodInfo.DeclaringType?.FullName ?? "Unknown";
             var methodName = methodInfo.Name;
-            var parameterList = string.Join(", ", methodInfo.GetParameters().Select(x => $"{x.ParameterType.FullName} {x.Name}"));
+            var parameterList = string.Join(", ", methodInfo.GetParameters().Select(x => $"{x.ParameterType.FullName}"));
 
             return $"{declaringType}.{methodName}({parameterList})";
         }
