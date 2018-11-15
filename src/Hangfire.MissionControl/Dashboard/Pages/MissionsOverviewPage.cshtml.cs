@@ -105,11 +105,21 @@ WriteLiteral("\";\r\n    var idFieldName = \"");
             
             #line default
             #line hidden
+WriteLiteral("\";\r\n    var jobLinkBaseUrl = \"");
+
+
+            
+            #line 19 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                     Write(Url.JobDetails(""));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\";\r\n</script>\r\n<script type=\"text/javascript\" src=\"");
 
 
             
-            #line 20 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 21 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                Write(Url.To("/mission-control/jspage"));
 
             
@@ -119,7 +129,7 @@ WriteLiteral("\"></script>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md
 
 
             
-            #line 24 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 25 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
    Write(CategoriesSidebar.Render(Html, selectedCategory, missionMap));
 
             
@@ -129,7 +139,7 @@ WriteLiteral("\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n        <h1 clas
 
 
             
-            #line 27 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 28 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                            Write(selectedCategory);
 
             
@@ -139,7 +149,7 @@ WriteLiteral("</h1>\r\n");
 
 
             
-            #line 28 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 29 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
          foreach (var mission in availableMissions)
         {
 
@@ -151,7 +161,7 @@ WriteLiteral("            <div class=\"panel panel-default\">\r\n               
 
 
             
-            #line 32 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 33 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                        Write(mission.Name);
 
             
@@ -161,7 +171,7 @@ WriteLiteral("</h3>\r\n                </div>\r\n                <div class=\"pa
 
 
             
-            #line 35 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 36 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                      if (!string.IsNullOrWhiteSpace(mission.Description))
                     {
 
@@ -172,7 +182,7 @@ WriteLiteral("                        <p>");
 
 
             
-            #line 37 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 38 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                       Write(mission.Description);
 
             
@@ -182,7 +192,7 @@ WriteLiteral("</p>\r\n");
 
 
             
-            #line 38 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 39 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     }
 
             
@@ -192,7 +202,7 @@ WriteLiteral("\r\n                    <form id=\"");
 
 
             
-            #line 40 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 41 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                          Write(mission.Id);
 
             
@@ -202,7 +212,7 @@ WriteLiteral("\">\r\n");
 
 
             
-            #line 41 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 42 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                          foreach (var parameter in mission.MethodInfo.GetParameters())
                         {
                             var control = ControlFactory.CreateControl(parameter, mission);
@@ -217,7 +227,7 @@ WriteLiteral("                            <div class=\"form-group\">\r\n        
 
 
             
-            #line 47 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 48 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                            Write(Html.RenderPartial(control));
 
             
@@ -227,7 +237,7 @@ WriteLiteral("\r\n                            </div>\r\n");
 
 
             
-            #line 49 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 50 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                         }
 
             
@@ -238,7 +248,7 @@ WriteLiteral("\r\n                        <button type=\"button\" class=\"btn bt
 
 
             
-            #line 51 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 52 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                                                                               Write(mission.Id);
 
             
@@ -249,7 +259,7 @@ WriteLiteral("\');return false;\">Enqueue</button>\r\n                    </form
 
 
             
-            #line 54 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 55 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     Write(mission.Id);
 
             
@@ -259,7 +269,7 @@ WriteLiteral("-alerts\" class=\"panel-footer\"></div>\r\n            </div>\r\n"
 
 
             
-            #line 56 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 57 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
         }
 
             
