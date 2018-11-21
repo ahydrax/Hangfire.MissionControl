@@ -10,7 +10,8 @@ namespace Hangfire.MissionControl
 
         public MissionMap(Dictionary<string, Mission> missions)
         {
-            Missions = missions;
+            Missions = missions.OrderBy(x => x.Value.Name)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             MissionCategories = missions.Values
                 .GroupBy(x => x.CategoryName)

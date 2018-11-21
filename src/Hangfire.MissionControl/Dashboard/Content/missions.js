@@ -1,10 +1,13 @@
 ﻿"use strict";
 
 function createAlert(style, innerContent) {
-    return "<div class=\"alert " + style + " alert-dismissible fade in\" role=\"alert\"> " +
-        "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
-        "<span aria-hidden=\"true\">×</span>" +
-        "</button>" + innerContent + "</div>";
+    return "<div class=\"alert " + style + "\" role=\"alert\">" + innerContent + "</div>";
+}
+
+function applyAlert(callerElement, alertsElementId, alertContent) {
+    $(alertsElementId).removeClass("hidden");
+    $(alertsElementId).append(alertContent);
+    callerElement.disabled = false;
 }
 
 function onMissionStart(element, jobId) {
@@ -26,13 +29,11 @@ function onMissionStart(element, jobId) {
         success: function (r) {
             var jobLink = jobLinkBaseUrl + r;
             var alert = createAlert("alert-success", "Mission launched with id: <a href=\"" + jobLink + "\"><strong>" + r + "</strong></a>");
-            $(alertsElementId).append(alert);
-            element.disabled = false;
+            applyAlert(element, alertsElementId, alert);
         },
         error: function (r) {
             var alert = createAlert("alert-danger", "An error occured during launching: <br/><strong>" + r.responseText + "</strong>");
-            $(alertsElementId).append(alert);
-            element.disabled = false;
+            applyAlert(element, alertsElementId, alert);
         }
     });
-};
+}

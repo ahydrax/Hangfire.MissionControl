@@ -24,7 +24,7 @@ namespace Hangfire.MissionControl
         {
             var map = MissionMapBuilder.BuildMap(missionAssemblies);
 
-            DashboardRoutes.Routes.AddRazorPage("/missions", x => new MissionsOverviewPage(map.MissionCategories.First().Key, map, options));
+            DashboardRoutes.Routes.AddRazorPage("/missions", x => new MissionsOverviewPage(map.MissionCategories.FirstOrDefault().Key ?? "default", map, options));
             DashboardRoutes.Routes.AddRazorPage("/missions/(?<categoryId>.+)", x => new MissionsOverviewPage(x.Groups["categoryId"].Value, map, options));
             DashboardRoutes.Routes.Add("/mission/launch", new MissionLauncher(map));
 

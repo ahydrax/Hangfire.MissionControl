@@ -17,9 +17,6 @@ namespace Hangfire.MissionControl
             var missions = LookupForMission(targetTypes)
                 .OrderBy(x => x.Name)
                 .ToDictionary(x => x.Id, x => x);
-
-            if (missions.Count == 0) 
-                throw new InvalidOperationException("No missions were found.");
             
             return new MissionMap(missions);
         }

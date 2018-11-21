@@ -28,17 +28,34 @@
     </div>
     <div class="col-md-9">
         <h1 class="page-header">@selectedCategory</h1>
+        @if (availableMissions.Length == 0)
+        {
+            <div class="alert alert-warning" role="alert">
+                No missions for selected category are available
+            </div>
+        }
+
         @foreach (var mission in availableMissions)
         {
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">@mission.Name</h3>
+                    <div class="btn-group">
+                        <a role="button" data-toggle="collapse" href="#@mission.Id-panel" aria-expanded="false">
+                            <h3 class="panel-title">@mission.Name</h3>
+                        </a>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div id="@mission.Id-panel" class="panel-body collapse">
                     @if (!string.IsNullOrWhiteSpace(mission.Description))
                     {
                         <p>@mission.Description</p>
                     }
+
+                    <div class="job-snippet">
+                        <div class="job-snippet-code">
+                            <pre><code>@MissionRenderer.RenderMission(mission.MethodInfo)</code></pre>
+                        </div>
+                    </div>
 
                     <form id="@mission.Id">
                         @foreach (var parameter in mission.MethodInfo.GetParameters())
@@ -54,7 +71,7 @@
                         <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');return false;">Enqueue</button>
                     </form>
                 </div>
-                <div id="@mission.Id-alerts" class="panel-footer"></div>
+                <div id="@mission.Id-alerts" class="panel-footer hidden"></div>
             </div>
         }
     </div>

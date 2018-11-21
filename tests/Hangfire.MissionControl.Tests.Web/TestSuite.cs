@@ -50,4 +50,18 @@ namespace Hangfire.MissionControl.Tests.Web
         [Mission(Name = "Mission #3", Description = "Mission with specified queue", Queue = "queue1")]
         public static string DoJob(int id, DateTime time) => "success";
     }
+
+    [MissionLauncher(CategoryName = "Migrations")]
+    public static class UserMigrator
+    {
+        [Mission(Name = "[2018-11-10] Update user DB", Description = "Remove unused fields")]
+        public static string Migrate() => "success";
+    }
+
+    [MissionLauncher(CategoryName = "Migrations")]
+    public static class EventMigrator
+    {
+        [Mission(Name = "[2018-11-12] Migrate events db", Description = "Add event specific fields")]
+        public static string Migrate() => "success";
+    }
 }
