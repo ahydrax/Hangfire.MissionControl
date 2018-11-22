@@ -60,10 +60,10 @@
                         </div>
                     </div>
 
-                    <form id="@mission.Id">
+                    <form id="@mission.Id" autocomplete="off">
                         @foreach (var parameter in mission.MethodInfo.GetParameters())
                         {
-                            var control = ControlFactory.CreateControl(parameter, mission);
+                            var control = ControlFactory.CreateControl(parameter);
                             if (control is NullControl) { continue; }
 
                             <div class="form-group">

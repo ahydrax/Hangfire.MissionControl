@@ -5,6 +5,7 @@ using Hangfire.Annotations;
 using Hangfire.Dashboard;
 using Hangfire.MissionControl.Dashboard.Content;
 using Hangfire.MissionControl.Dashboard.Pages;
+using Hangfire.MissionControl.Launching;
 
 namespace Hangfire.MissionControl
 {
@@ -26,7 +27,7 @@ namespace Hangfire.MissionControl
 
             DashboardRoutes.Routes.AddRazorPage("/missions", x => new MissionsOverviewPage(map.MissionCategories.FirstOrDefault().Key ?? "default", map, options));
             DashboardRoutes.Routes.AddRazorPage("/missions/(?<categoryId>.+)", x => new MissionsOverviewPage(x.Groups["categoryId"].Value, map, options));
-            DashboardRoutes.Routes.Add("/mission/launch", new MissionLauncher(map));
+            DashboardRoutes.Routes.Add("/mission/launch", new MissionLaunchDispatcher(map));
 
             NavigationMenu.Items.Add(page => new MenuItem(MissionsOverviewPage.Title, page.Url.To(MissionsOverviewPage.PageRoute))
             {

@@ -16,7 +16,7 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
         {
             WriteLiteral("<div class=\"input-group\">");
             WriteLiteral($"<div class=\"input-group-addon\">{Parameter.Name}</div>");
-            WriteLiteral($"<input type=\"number\" name=\"{Parameter.Name}\" placeholder=\"{Parameter.Name}\" class=\"form-control\" />");
+            WriteLiteral($"<input type=\"number\" step=\"1\" name=\"{Parameter.Name}\" placeholder=\"{Parameter.Name}\" class=\"form-control\" />");
             WriteLiteral("</div>");
         }
     }
