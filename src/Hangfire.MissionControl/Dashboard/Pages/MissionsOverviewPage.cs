@@ -1,4 +1,6 @@
-﻿namespace Hangfire.MissionControl.Dashboard.Pages
+﻿using Hangfire.MissionControl.Model;
+
+namespace Hangfire.MissionControl.Dashboard.Pages
 {
     internal partial class MissionsOverviewPage
     {

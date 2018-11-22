@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Hangfire.MissionControl
+namespace Hangfire.MissionControl.Model
 {
     internal class MissionMap
     {

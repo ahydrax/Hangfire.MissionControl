@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Hangfire.MissionControl.Model;
 
-namespace Hangfire.MissionControl
+namespace Hangfire.MissionControl.Mapping
 {
     internal static class MissionMapBuilder
     {

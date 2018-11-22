@@ -6,6 +6,7 @@ using Hangfire.Dashboard;
 using Hangfire.MissionControl.Dashboard.Content;
 using Hangfire.MissionControl.Dashboard.Pages;
 using Hangfire.MissionControl.Launching;
+using Hangfire.MissionControl.Mapping;
 
 namespace Hangfire.MissionControl
 {

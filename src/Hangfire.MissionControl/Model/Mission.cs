@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Hangfire.MissionControl
+namespace Hangfire.MissionControl.Model
 {
     internal sealed class Mission
     {

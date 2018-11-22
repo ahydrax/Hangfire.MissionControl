@@ -1,4 +1,5 @@
 ﻿using Hangfire.Dashboard;
+using Hangfire.MissionControl.Model;
 
 namespace Hangfire.MissionControl.Dashboard.Pages
 {

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hangfire.Common;
 using Hangfire.Dashboard;
+using Hangfire.MissionControl.Model;
 using Hangfire.States;
 
 namespace Hangfire.MissionControl.Launching
