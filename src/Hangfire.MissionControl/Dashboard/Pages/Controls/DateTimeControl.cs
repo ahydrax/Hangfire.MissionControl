@@ -6,7 +6,7 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
     internal sealed class DateTimeControl : RazorPage
     {
         public ParameterInfo Parameter { get; }
-        
+
         public DateTimeControl(ParameterInfo parameter)
         {
             Parameter = parameter;
@@ -14,9 +14,9 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
 
         public override void Execute()
         {
-            WriteLiteral("<div class=\"input-group\">");
-            WriteLiteral($"<div class=\"input-group-addon\">{Parameter.Name}</div>");
-            WriteLiteral($"<input type=\"datetime-local\" name=\"{Parameter.Name}\" placeholder=\"{Parameter.Name}\" class=\"form-control\" />");
+            WriteLiteral("<div class=\"input-group date\">");
+            WriteLiteral($"<span class=\"input-group-addon\">{Parameter.Name}</span>");
+            WriteLiteral($"<input type=\"text\" class=\"form-control datetimepicker\" name=\"{Parameter.Name}\" placeholder=\"{Parameter.Name}\"/>");
             WriteLiteral("</div>");
         }
     }

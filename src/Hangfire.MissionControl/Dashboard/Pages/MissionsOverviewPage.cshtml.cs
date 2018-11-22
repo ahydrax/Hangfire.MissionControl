@@ -81,7 +81,17 @@ WriteLiteral("\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
 
             
             #line 16 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
-                                        Write(Url.To("/mission-control/cssstyles"));
+                                        Write(Url.To("/mission-control/css/styles"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\" />\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
+
+
+            
+            #line 17 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                        Write(Url.To("/mission-control/css/bootstrap-datetimepicker"));
 
             
             #line default
@@ -90,7 +100,7 @@ WriteLiteral("\" />\r\n<script>\r\n    var baseUrl = \"");
 
 
             
-            #line 18 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 19 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
               Write(Url.To("/mission/launch"));
 
             
@@ -100,7 +110,7 @@ WriteLiteral("\";\r\n    var idFieldName = \"");
 
 
             
-            #line 19 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 20 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                   Write(Mission.IdField);
 
             
@@ -110,7 +120,7 @@ WriteLiteral("\";\r\n    var jobLinkBaseUrl = \"");
 
 
             
-            #line 20 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 21 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                      Write(Url.JobDetails(""));
 
             
@@ -120,7 +130,7 @@ WriteLiteral("\";\r\n    var requireConfirmation = ");
 
 
             
-            #line 21 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 22 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                          Write(options.RequireConfirmation.ToString().ToLowerInvariant());
 
             
@@ -130,8 +140,28 @@ WriteLiteral(";\r\n</script>\r\n<script type=\"text/javascript\" src=\"");
 
 
             
-            #line 23 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
-                               Write(Url.To("/mission-control/jspage"));
+            #line 24 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                               Write(Url.To("/mission-control/js/moment"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\"></script>\r\n<script defer type=\"text/javascript\" src=\"");
+
+
+            
+            #line 25 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                     Write(Url.To("/mission-control/js/bootstrap-datetimepicker"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\"></script>\r\n<script defer type=\"text/javascript\" src=\"");
+
+
+            
+            #line 26 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                     Write(Url.To("/mission-control/js/page"));
 
             
             #line default
@@ -140,7 +170,7 @@ WriteLiteral("\"></script>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md
 
 
             
-            #line 27 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 30 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
    Write(CategoriesSidebar.Render(Html, selectedCategory, missionMap));
 
             
@@ -150,7 +180,7 @@ WriteLiteral("\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n        <h1 clas
 
 
             
-            #line 30 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 33 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                            Write(selectedCategory);
 
             
@@ -160,7 +190,7 @@ WriteLiteral("</h1>\r\n");
 
 
             
-            #line 31 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 34 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
          if (availableMissions.Length == 0)
         {
 
@@ -172,7 +202,7 @@ WriteLiteral("            <div class=\"alert alert-warning\" role=\"alert\">\r\n
 
 
             
-            #line 36 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 39 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
         }
 
             
@@ -182,7 +212,7 @@ WriteLiteral("\r\n");
 
 
             
-            #line 38 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 41 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
          foreach (var mission in availableMissions)
         {
 
@@ -195,7 +225,7 @@ WriteLiteral("            <div class=\"panel panel-default\">\r\n               
 
 
             
-            #line 43 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 46 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                                                   Write(mission.Id);
 
             
@@ -206,7 +236,7 @@ WriteLiteral("-panel\" aria-expanded=\"false\">\r\n                            <
 
 
             
-            #line 44 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 47 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                                Write(mission.Name);
 
             
@@ -217,7 +247,7 @@ WriteLiteral("</h3>\r\n                        </a>\r\n                    </div
 
 
             
-            #line 48 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 51 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     Write(mission.Id);
 
             
@@ -227,7 +257,7 @@ WriteLiteral("-panel\" class=\"panel-body collapse\">\r\n");
 
 
             
-            #line 49 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 52 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                      if (!string.IsNullOrWhiteSpace(mission.Description))
                     {
 
@@ -238,7 +268,7 @@ WriteLiteral("                        <p>");
 
 
             
-            #line 51 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 54 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                       Write(mission.Description);
 
             
@@ -248,7 +278,7 @@ WriteLiteral("</p>\r\n");
 
 
             
-            #line 52 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 55 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     }
 
             
@@ -259,7 +289,7 @@ WriteLiteral("\r\n                    <div class=\"job-snippet\">\r\n           
 
 
             
-            #line 56 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 59 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                   Write(MissionRenderer.RenderMission(mission.MethodInfo));
 
             
@@ -270,7 +300,7 @@ WriteLiteral("</code></pre>\r\n                        </div>\r\n               
 
 
             
-            #line 60 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 63 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                          Write(mission.Id);
 
             
@@ -280,7 +310,7 @@ WriteLiteral("\">\r\n");
 
 
             
-            #line 61 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 64 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                          foreach (var parameter in mission.MethodInfo.GetParameters())
                         {
                             var control = ControlFactory.CreateControl(parameter, mission);
@@ -295,7 +325,7 @@ WriteLiteral("                            <div class=\"form-group\">\r\n        
 
 
             
-            #line 67 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 70 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                            Write(Html.RenderPartial(control));
 
             
@@ -305,7 +335,7 @@ WriteLiteral("\r\n                            </div>\r\n");
 
 
             
-            #line 69 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 72 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                         }
 
             
@@ -316,18 +346,18 @@ WriteLiteral("\r\n                        <button type=\"button\" class=\"btn bt
 
 
             
-            #line 71 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 74 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                                                                              Write(mission.Id);
 
             
             #line default
             #line hidden
-WriteLiteral("\');return false;\">Enqueue</button>\r\n                    </form>\r\n                " +
-"</div>\r\n                <div id=\"");
+WriteLiteral("\');\">Enqueue</button>\r\n                    </form>\r\n                </div>\r\n     " +
+"           <div id=\"");
 
 
             
-            #line 74 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 77 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     Write(mission.Id);
 
             
@@ -337,7 +367,7 @@ WriteLiteral("-alerts\" class=\"panel-footer hidden\"></div>\r\n            </di
 
 
             
-            #line 76 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 79 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
         }
 
             

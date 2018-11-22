@@ -13,14 +13,17 @@
     var availableMissions = missionMap.Missions.Where(x => x.Value.CategoryName == selectedCategory).Select(x => x.Value).ToArray();
 }
 
-<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/cssstyles")" />
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/styles")" />
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/bootstrap-datetimepicker")" />
 <script>
     var baseUrl = "@Url.To("/mission/launch")";
     var idFieldName = "@Mission.IdField";
     var jobLinkBaseUrl = "@Url.JobDetails("")";
     var requireConfirmation = @options.RequireConfirmation.ToString().ToLowerInvariant();
 </script>
-<script type="text/javascript" src="@Url.To("/mission-control/jspage")"></script>
+<script type="text/javascript" src="@Url.To("/mission-control/js/moment")"></script>
+<script defer type="text/javascript" src="@Url.To("/mission-control/js/bootstrap-datetimepicker")"></script>
+<script defer type="text/javascript" src="@Url.To("/mission-control/js/page")"></script>
 
 <div class="row">
     <div class="col-md-3">
@@ -68,7 +71,7 @@
                             </div>
                         }
 
-                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');return false;">Enqueue</button>
+                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');">Enqueue</button>
                     </form>
                 </div>
                 <div id="@mission.Id-alerts" class="panel-footer hidden"></div>

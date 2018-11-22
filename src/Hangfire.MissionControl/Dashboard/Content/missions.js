@@ -37,3 +37,9 @@ function onMissionStart(element, jobId) {
         }
     });
 }
+
+$(".datetimepicker").each(function () {
+    $(this).datetimepicker({
+        format: "YYYY-DD-MM HH:mm"
+    });
+});

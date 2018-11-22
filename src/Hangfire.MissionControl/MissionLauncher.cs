@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -63,10 +64,14 @@ namespace Hangfire.MissionControl
                         break;
 
                     case string dateTimeValue when parameterType == typeof(DateTime):
-                        var parsed = DateTime.TryParse(dateTimeValue, out var dateTime);
+                        var parsed = DateTimeOffset.TryParseExact(dateTimeValue,
+                            "yyyy-dd-MM HH:mm",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out var dateTime);
                         if (parsed)
                         {
-                            result.Add(dateTime);
+                            result.Add(dateTime.UtcDateTime);
                         }
                         else
                         {

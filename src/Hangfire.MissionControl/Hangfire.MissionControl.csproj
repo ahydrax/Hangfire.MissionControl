@@ -24,8 +24,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.css" />
+    <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.js" />
     <None Remove="Dashboard\Content\missions.css" />
     <None Remove="Dashboard\Content\missions.js" />
+    <None Remove="Dashboard\Content\moment.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.css" />
+    <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.js" />
     <EmbeddedResource Include="Dashboard\Content\missions.css" />
     <EmbeddedResource Include="Dashboard\Content\missions.js" />
+    <EmbeddedResource Include="Dashboard\Content\moment.min.js" />
   </ItemGroup>
 
   <ItemGroup>
