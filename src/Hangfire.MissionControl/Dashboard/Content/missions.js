@@ -40,6 +40,6 @@ function onMissionStart(element, jobId) {
 
 $(".datetimepicker").each(function () {
     $(this).datetimepicker({
-        format: "YYYY-DD-MM HH:mm"
+        format: "YYYY-MM-DD HH:mm"
     });
 });

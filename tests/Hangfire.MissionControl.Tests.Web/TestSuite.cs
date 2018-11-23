@@ -48,7 +48,7 @@ namespace Hangfire.MissionControl.Tests.Web
     public static class TestSuite3
     {
         [Mission(Name = "Mission #3", Description = "Mission with specified queue", Queue = "queue1")]
-        public static string DoJob(int id, DateTime time) => "success";
+        public static string DoJob(string id, DateTime startOfPeriod, DateTimeOffset endOfPeriod) => "success";
     }
 
     [MissionLauncher(CategoryName = "Migrations")]
