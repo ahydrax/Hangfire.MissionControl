@@ -55,7 +55,7 @@ namespace Hangfire.MissionControl.Launching
                 }
                 else
                 {
-                    var jobId = context.GetBackgroundJobClient().Create(new Job(mission.MethodInfo, parameters), new EnqueuedState());
+                    var jobId = context.GetBackgroundJobClient().Create(new Job(mission.MethodInfo, parameters), new EnqueuedState(mission.Queue));
 
                     context.Response.StatusCode = 201;
                     await context.Response.WriteAsync(jobId);
