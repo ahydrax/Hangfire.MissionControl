@@ -29,8 +29,7 @@ namespace Hangfire.MissionControl.Dashboard.Pages
             var builder = new StringBuilder();
 
             var namespaces = parameters.Select(x => x.ParameterType)
-                .Append(declaringType)
-                .Append(returnType)
+                .Concat(new[] { declaringType, returnType })
                 .Select(x => x.Namespace)
                 .Distinct()
                 .OrderBy(x => x)

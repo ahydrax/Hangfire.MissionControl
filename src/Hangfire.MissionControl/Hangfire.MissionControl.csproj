@@ -10,7 +10,7 @@
   
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4</Version>
+    <Version>0.4.1</Version>
     <PackageTags>hangfire manual jobs</PackageTags>
     <Authors>Viktor Svyatokha (@ahydrax)</Authors>
     <PackageProjectUrl>https://github.com/ahydrax/Hangfire.MissionControl</PackageProjectUrl>
