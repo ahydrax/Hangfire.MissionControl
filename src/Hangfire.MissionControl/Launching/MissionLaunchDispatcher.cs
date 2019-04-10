@@ -55,7 +55,18 @@ namespace Hangfire.MissionControl.Launching
                 }
                 else
                 {
-                    var jobId = context.GetBackgroundJobClient().Create(new Job(mission.MethodInfo, parameters), new EnqueuedState(mission.Queue));
+                    string jobId;
+
+                    var cron = context.Request.GetQuery("cron");
+                    if (string.IsNullOrWhiteSpace(cron) || cron == "false")
+                    {
+                        jobId = context.GetBackgroundJobClient().Create(new Job(mission.MethodInfo, parameters), new EnqueuedState(mission.Queue));
+                    }
+                    else
+                    {
+                        jobId = missionId + DateTime.UtcNow.Ticks;
+                        context.GetRecurringJobManager().AddOrUpdate(jobId, new Job(mission.MethodInfo, parameters), cron);
+                    }
 
                     context.Response.StatusCode = 201;
                     await context.Response.WriteAsync(jobId);

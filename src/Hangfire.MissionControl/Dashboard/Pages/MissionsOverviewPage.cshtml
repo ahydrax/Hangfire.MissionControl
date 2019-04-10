@@ -71,8 +71,10 @@
                                 @Html.RenderPartial(control)
                             </div>
                         }
+                        
+                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id', false);">Enqueue</button>
+                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id', true);">Launch Recurring</button>
 
-                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');">Enqueue</button>
                     </form>
                 </div>
                 <div id="@mission.Id-alerts" class="panel-footer hidden"></div>

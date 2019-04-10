@@ -10,19 +10,22 @@ function applyAlert(callerElement, alertsElementId, alertContent) {
     callerElement.disabled = false;
 }
 
-function onMissionStart(element, jobId) {
+function onMissionStart(element, jobId, recurring) {
+
     var formElementId = "#" + jobId;
     var alertsElementId = formElementId + "-alerts";
     var data = $(formElementId).serializeArray();
     var launch = !requireConfirmation || confirm("Launch mission?");
     if (!launch) return;
 
+    var cron = recurring && prompt("Enter cron schedule expression");
+
     element.disabled = true;
     $.ajax({
         async: true,
         cache: false,
         timeout: 10000,
-        url: baseUrl + "?" + idFieldName + "=" + jobId,
+        url: baseUrl + "?" + idFieldName + "=" + jobId + '&cron=' + cron,
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         data: data,
         type: "post",
