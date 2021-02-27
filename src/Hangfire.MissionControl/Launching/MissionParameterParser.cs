@@ -73,6 +73,9 @@ namespace Hangfire.MissionControl.Launching
 
                 case var t when t == typeof(Guid):
                     return TryParse(Guid.Parse, parameterValue);
+                
+                case var t when t.IsEnum:
+                    return TryParse(x => Enum.Parse(parameterType, x), parameterValue);
 
                 case var t when t == typeof(PerformContext):
                     return (null, ErrorType.No, true);
