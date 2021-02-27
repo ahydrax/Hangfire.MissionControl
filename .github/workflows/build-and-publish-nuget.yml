@@ -1,7 +1,9 @@
 name: Publish Nuget package
 
-on: [release]
-
+on:
+  release:
+    published
+    
 jobs:
   build-test-pack:
 
