@@ -39,6 +39,9 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
 
                 case var _ when parameterType == typeof(DateTimeOffset):
                     return new DateTimeControl(parameter);
+                
+                case var _ when parameterType == typeof(Guid):
+                    return new GuidControl(parameter);
 
                 case var _ when parameterType == typeof(PerformContext):
                 case var _ when parameterType == typeof(IJobCancellationToken):

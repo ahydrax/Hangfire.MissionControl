@@ -205,7 +205,7 @@ WriteLiteral("</h1>\r\n");
             #line default
             #line hidden
 WriteLiteral("            <div class=\"alert alert-warning\" role=\"alert\">\r\n                No mi" +
-"ssions for selected category are available\r\n            </div>\r\n");
+"ssions for a selected category are available.\r\n            </div>\r\n");
 
 
             

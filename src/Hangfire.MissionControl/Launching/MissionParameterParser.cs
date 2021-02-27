@@ -61,12 +61,18 @@ namespace Hangfire.MissionControl.Launching
                         parameterValue);
 
                 case var t when t == typeof(DateTime):
-                    return TryParse(x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None).UtcDateTime,
+                    return TryParse(
+                        x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None)
+                            .UtcDateTime,
                         parameterValue);
 
                 case var t when t == typeof(DateTimeOffset):
-                    return TryParse(x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                    return TryParse(
+                        x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None),
                         parameterValue);
+
+                case var t when t == typeof(Guid):
+                    return TryParse(Guid.Parse, parameterValue);
 
                 case var t when t == typeof(PerformContext):
                     return (null, ErrorType.No, true);
