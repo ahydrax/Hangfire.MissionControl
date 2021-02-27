@@ -26,5 +26,5 @@ jobs:
       run: dotnet pack ./src/Hangfire.MissionControl/Hangfire.MissionControl.csproj --output nupkgs --no-build --configuration Release -p:PackageVersion=${{ github.event.release.tag_name }}
       
     - name: Push
-      run: dotnet nuget push ./nupkgs/Hangfire.MissionControl.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkgs/Hangfire.MissionControl.${{ github.event.release.tag_name }}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
       
