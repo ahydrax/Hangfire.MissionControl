@@ -1,6 +1,6 @@
 # Hangfire.MissionControl
 [![NuGet](https://img.shields.io/nuget/v/Hangfire.MissionControl.svg)](https://www.nuget.org/packages/Hangfire.MissionControl/)
-[![Build](https://github.com/ahydrax/Hangfire.MissionControl/actions/workflows/build-and-test.yml/badge.svg?branch=master)](https://github.com/ahydrax/Hangfire.MissionControl/actions/workflows/build-and-test.yml)
+[![Tests](https://github.com/ahydrax/Hangfire.MissionControl/actions/workflows/build-and-test.yml/badge.svg?branch=master)](https://github.com/ahydrax/Hangfire.MissionControl/actions/workflows/build-and-test.yml)
 ![dashboard](content/dashboard.png)
 
 A plugin for Hangfire that enables you to launch jobs manually.
