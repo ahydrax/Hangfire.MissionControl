@@ -1,0 +1,28 @@
+name: Publish Nuget package
+
+on: [release]
+
+jobs:
+  build-test-pack:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      
+    - name: Pack
+      run: dotnet pack ./src/Hangfire.MissionControl/Hangfire.MissionControl.csproj --output nupkgs --no-build -p:PackageVersion=${{ github.event.release.tag_name }}
+      
+    - name: Push
+      run: dotnet nuget push ./nupkgs/Hangfire.MissionControl.nupkg --api-key ${{ secrets.NUGET_API_KEY }}
+      
