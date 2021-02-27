@@ -23,8 +23,8 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
       
     - name: Pack
-      run: dotnet pack ./src/Hangfire.MissionControl/Hangfire.MissionControl.csproj --output nupkgs --no-build  --configuration Release -p:PackageVersion=${{ github.event.release.tag_name }}
+      run: dotnet pack ./src/Hangfire.MissionControl/Hangfire.MissionControl.csproj --output nupkgs --no-build --configuration Release -p:PackageVersion=${{ github.event.release.tag_name }}
       
     - name: Push
-      run: dotnet nuget push ./nupkgs/Hangfire.MissionControl.nupkg --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkgs/Hangfire.MissionControl.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }}
       
