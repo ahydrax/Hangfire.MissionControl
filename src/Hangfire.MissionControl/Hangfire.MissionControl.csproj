@@ -9,8 +9,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.1</Version>
+    <IsPackable>true</IsPackable>
     <Description>A plugin for Hangfire that enables you to launch jobs manually.</Description>
     <PackageTags>hangfire manual jobs</PackageTags>
     <Authors>Viktor Svyatokha (@ahydrax)</Authors>
