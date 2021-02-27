@@ -37,27 +37,27 @@ namespace Hangfire.MissionControl
             });
 
             AddDashboardRouteToEmbeddedResource(
-                "/mission-control/js/page.js",
+                "/mission-control/js/jspage",
                 "application/javascript",
                 "Hangfire.MissionControl.Dashboard.Content.missions.js");
 
             AddDashboardRouteToEmbeddedResource(
-                "/mission-control/js/moment.js",
+                "/mission-control/js/jsmoment",
                 "application/javascript",
                 "Hangfire.MissionControl.Dashboard.Content.moment.min.js");
 
             AddDashboardRouteToEmbeddedResource(
-                "/mission-control/js/bootstrap-datetimepicker.js",
+                "/mission-control/js/jsbootstrapdatetimepicker",
                 "application/javascript",
                 "Hangfire.MissionControl.Dashboard.Content.bootstrap-datetimepicker.min.js");
 
             AddDashboardRouteToEmbeddedResource(
-                "/mission-control/css/styles.css",
+                "/mission-control/css/cssstyles",
                 "text/css",
                 "Hangfire.MissionControl.Dashboard.Content.missions.css");
 
             AddDashboardRouteToEmbeddedResource(
-                "/mission-control/css/bootstrap-datetimepicker.css",
+                "/mission-control/css/cssbootstrapdatetimepicker",
                 "text/css",
                 "Hangfire.MissionControl.Dashboard.Content.bootstrap-datetimepicker.min.css");
 

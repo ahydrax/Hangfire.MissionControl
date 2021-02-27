@@ -14,17 +14,17 @@
     var availableMissions = missionMap.Missions.Where(x => x.Value.CategoryName == selectedCategory).Select(x => x.Value).ToArray();
 }
 
-<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/styles.css")" />
-<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/bootstrap-datetimepicker.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssstyles")" />
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssbootstrapdatetimepicker")" />
 <script>
     var baseUrl = "@Url.To("/mission/launch")";
     var idFieldName = "@Mission.IdField";
     var jobLinkBaseUrl = "@Url.JobDetails("")";
     var requireConfirmation = @options.RequireConfirmation.ToString().ToLowerInvariant();
 </script>
-<script type="application/javascript" src="@Url.To("/mission-control/js/moment.js")"></script>
-<script defer type="application/javascript" src="@Url.To("/mission-control/js/bootstrap-datetimepicker.js")"></script>
-<script defer type="application/javascript" src="@Url.To("/mission-control/js/page.js")"></script>
+<script type="application/javascript" src="@Url.To("/mission-control/js/jsmoment")"></script>
+<script defer type="application/javascript" src="@Url.To("/mission-control/js/jsbootstrapdatetimepicker")"></script>
+<script defer type="application/javascript" src="@Url.To("/mission-control/js/jspage")"></script>
 
 <div class="row">
     <div class="col-md-3">
