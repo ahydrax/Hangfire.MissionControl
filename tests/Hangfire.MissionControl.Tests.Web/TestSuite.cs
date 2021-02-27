@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Hangfire.MissionControl.Tests.Web
 {
@@ -31,8 +32,26 @@ namespace Hangfire.MissionControl.Tests.Web
 
         [Mission]
         public string DoJob(Guid guid) => $"success-{guid:D}";
+        
+        [Mission]
+        public string DoJob([MissionParam(DefaultValue = AType.Blue)] AType aType, BType bType) => $"success-{aType:G}-{bType:G}";
     }
 
+    public enum AType
+    {
+        Red,
+        Blue
+    }
+
+    public enum BType
+    {
+        X77,
+        R12,
+        
+        [Description("Prototype")]
+        Proto3
+    }
+    
     [MissionLauncher(CategoryName = "Descriptions")]
     public class TestSuite2
     {
