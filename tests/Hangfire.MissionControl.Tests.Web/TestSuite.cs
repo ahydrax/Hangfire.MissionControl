@@ -28,6 +28,9 @@ namespace Hangfire.MissionControl.Tests.Web
 
         [Mission]
         public string DoJob(DateTime dataTime) => "success";
+
+        [Mission]
+        public string DoJob(Guid guid) => $"success-{guid:D}";
     }
 
     [MissionLauncher(CategoryName = "Descriptions")]
