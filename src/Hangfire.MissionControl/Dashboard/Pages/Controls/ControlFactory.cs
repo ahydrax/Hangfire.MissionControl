@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Hangfire.Dashboard;
+using Hangfire.MissionControl.Extensions;
+using Hangfire.Server;
+using System;
 using System.Reflection;
 using System.Threading;
-using Hangfire.Dashboard;
-using Hangfire.Server;
 
 namespace Hangfire.MissionControl.Dashboard.Pages.Controls
 {
@@ -40,10 +41,10 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
 
                 case var _ when parameterType == typeof(DateTimeOffset):
                     return new DateTimeControl(parameter);
-                
+
                 case var _ when parameterType == typeof(Guid):
                     return new GuidControl(parameter);
-                
+
                 case var t when t.IsEnum:
                     return new EnumControl(parameter);
 
@@ -51,6 +52,9 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
                 case var _ when parameterType == typeof(IJobCancellationToken):
                 case var _ when parameterType == typeof(CancellationToken):
                     return new NullControl();
+
+                case var _ when parameterType.CanBeInstantiated():
+                    return new JsonControl(parameter);
 
                 default:
                     return new UnsupportedControl(parameter);

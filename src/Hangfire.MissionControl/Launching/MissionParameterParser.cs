@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using Hangfire.MissionControl.Extensions;
 using Hangfire.Server;
 using Newtonsoft.Json;
 
@@ -82,6 +83,9 @@ namespace Hangfire.MissionControl.Launching
                 case var jct when jct == typeof(IJobCancellationToken):
                 case var ct when ct == typeof(CancellationToken):
                     return (null, ErrorType.No, true);
+
+                case var t when t.CanBeInstantiated():
+                    return TryParse(x => JsonConvert.DeserializeObject(parameterValue, t), parameterValue);
 
                 default:
                     return (null, ErrorType.Unsupported, false);
