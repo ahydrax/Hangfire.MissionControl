@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
+using Hangfire.Server;
 
 namespace Hangfire.MissionControl.Tests.Web
 {
@@ -35,6 +37,12 @@ namespace Hangfire.MissionControl.Tests.Web
         
         [Mission]
         public string DoJob([MissionParam(DefaultValue = AType.Blue)] AType aType, BType bType) => $"success-{aType:G}-{bType:G}";
+
+        [Mission]
+        public string DoJob(PerformContext ctx, IJobCancellationToken token, CancellationToken ct) => "success";
+        
+        [Mission]
+        public string DoJob(int id, PerformContext ctx, IJobCancellationToken token, CancellationToken ct) => $"success-{id}";
     }
 
     public enum AType

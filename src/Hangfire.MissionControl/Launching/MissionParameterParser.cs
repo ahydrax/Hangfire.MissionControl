@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
 using Hangfire.Server;
 using Newtonsoft.Json;
 
@@ -77,10 +78,9 @@ namespace Hangfire.MissionControl.Launching
                 case var t when t.IsEnum:
                     return TryParse(x => Enum.Parse(parameterType, x), parameterValue);
 
-                case var t when t == typeof(PerformContext):
-                    return (null, ErrorType.No, true);
-
-                case var t when t == typeof(IJobCancellationToken):
+                case var pctx when pctx == typeof(PerformContext):
+                case var jct when jct == typeof(IJobCancellationToken):
+                case var ct when ct == typeof(CancellationToken):
                     return (null, ErrorType.No, true);
 
                 default:

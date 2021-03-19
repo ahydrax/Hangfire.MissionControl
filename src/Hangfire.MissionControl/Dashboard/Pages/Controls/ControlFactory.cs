@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using Hangfire.Dashboard;
 using Hangfire.Server;
 
@@ -48,6 +49,7 @@ namespace Hangfire.MissionControl.Dashboard.Pages.Controls
 
                 case var _ when parameterType == typeof(PerformContext):
                 case var _ when parameterType == typeof(IJobCancellationToken):
+                case var _ when parameterType == typeof(CancellationToken):
                     return new NullControl();
 
                 default:
