@@ -81,6 +81,18 @@ namespace Hangfire.MissionControl.Tests.Web
         public static string DoJob(string id, DateTime startOfPeriod, DateTimeOffset endOfPeriod) => "success";
     }
 
+    [MissionLauncher(CategoryName = "Interface")]
+    public interface ITestSuite4
+    {
+        [Mission(Name = "Mission #1", Description = "Mission with interface abstraction")]
+        string DoJob(int id, DateTime time);
+    }
+
+    public class TestSuite4 : ITestSuite4
+    {
+        public string DoJob(int id, DateTime time) => "success";
+    }
+
     [MissionLauncher(CategoryName = "Migrations")]
     public static class UserMigrator
     {
