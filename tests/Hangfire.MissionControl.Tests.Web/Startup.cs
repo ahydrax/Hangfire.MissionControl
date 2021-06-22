@@ -12,6 +12,7 @@ namespace Hangfire.MissionControl.Tests.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<ITestSuite4, TestSuite4>();
             services.AddHangfire(configuration =>
             {
                 configuration.UseMemoryStorage();

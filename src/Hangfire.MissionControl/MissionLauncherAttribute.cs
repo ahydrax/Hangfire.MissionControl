@@ -4,7 +4,7 @@ using Hangfire.Annotations;
 namespace Hangfire.MissionControl
 {
     [PublicAPI]
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
     public class MissionLauncherAttribute : Attribute
     {
         public string CategoryName { get; set; }
