@@ -22,6 +22,12 @@ namespace Hangfire.MissionControl.Launching
 
         public async Task Dispatch(DashboardContext context)
         {
+            if (context.IsReadOnly)
+            {
+                context.Response.StatusCode = 401;
+                return;
+            }
+            
             if (!"POST".Equals(context.Request.Method, StringComparison.InvariantCultureIgnoreCase))
             {
                 context.Response.StatusCode = 405;

@@ -14,8 +14,8 @@
     var availableMissions = missionMap.Missions.Where(x => x.Value.CategoryName == selectedCategory).Select(x => x.Value).ToArray();
 }
 
-<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssstyles")" />
-<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssbootstrapdatetimepicker")" />
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssstyles")"/>
+<link rel="stylesheet" type="text/css" href="@Url.To("/mission-control/css/cssbootstrapdatetimepicker")"/>
 <script>
     var baseUrl = "@Url.To("/mission/launch")";
     var idFieldName = "@Mission.IdField";
@@ -55,25 +55,33 @@
                         <p>@mission.Description</p>
                     }
 
-                    <div class="job-snippet">
+                    @{
+                        var snippetStyle = IsReadOnly ? "margin-bottom: 0px" : "";
+                    }
+                    <div class="job-snippet" style="@snippetStyle">
                         <div class="job-snippet-code">
                             <pre><code>@MissionRenderer.RenderMission(mission.MethodInfo)</code></pre>
                         </div>
                     </div>
+                    @if (!IsReadOnly)
+                    {
+                        <form id="@mission.Id" autocomplete="off">
+                            @foreach (var parameter in mission.MethodInfo.GetParameters())
+                            {
+                                var control = ControlFactory.CreateControl(parameter);
+                                if (control is NullControl)
+                                {
+                                    continue;
+                                }
 
-                    <form id="@mission.Id" autocomplete="off">
-                        @foreach (var parameter in mission.MethodInfo.GetParameters())
-                        {
-                            var control = ControlFactory.CreateControl(parameter);
-                            if (control is NullControl) { continue; }
+                                <div class="form-group">
+                                    @Html.RenderPartial(control)
+                                </div>
+                            }
 
-                            <div class="form-group">
-                                @Html.RenderPartial(control)
-                            </div>
-                        }
-
-                        <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');">Enqueue</button>
-                    </form>
+                            <button type="button" class="btn btn-info" onclick="onMissionStart(this, '@mission.Id');">Enqueue</button>
+                        </form>
+                    }
                 </div>
                 <div id="@mission.Id-alerts" class="panel-footer hidden"></div>
             </div>

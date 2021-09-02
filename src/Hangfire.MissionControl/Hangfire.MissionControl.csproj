@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.Core" Version="1.6.20" />
+    <PackageReference Include="Hangfire.Core" Version="[1.7, 1.8)" />
     <PackageReference Include="RazorGenerator.MsBuild" Version="2.4.7">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

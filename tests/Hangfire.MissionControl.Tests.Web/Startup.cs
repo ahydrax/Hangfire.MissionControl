@@ -16,15 +16,25 @@ namespace Hangfire.MissionControl.Tests.Web
             services.AddHangfire(configuration =>
             {
                 configuration.UseMemoryStorage();
-                configuration.UseMissionControl(new MissionControlOptions { RequireConfirmation = false }, typeof(Startup).Assembly);
+                configuration.UseMissionControl(new MissionControlOptions { RequireConfirmation = false },
+                    typeof(Startup).Assembly);
             });
+            services.AddHangfireServer();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
-            app.UseHangfireServer();
-            app.UseHangfireDashboard("", new DashboardOptions { Authorization = new List<IDashboardAuthorizationFilter>() });
+            app.UseHangfireDashboard("/readonly",
+                new DashboardOptions
+                {
+                    IsReadOnlyFunc = ctx => true
+                });
+            app.UseHangfireDashboard("",
+                new DashboardOptions
+                {
+                    AppPath = "/readonly"
+                });
         }
     }
 }
