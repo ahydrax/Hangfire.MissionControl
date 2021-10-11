@@ -59,6 +59,19 @@ namespace Hangfire.MissionControl.Tests.Web
         [Description("Prototype")]
         Proto3
     }
+
+    public class Foo
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Bar[] Bars { get; set; }
+    }
+
+    public class Bar
+    {
+        public int Id { get; set; }
+        public string Baz { get; set; }
+    }
     
     [MissionLauncher(CategoryName = "Descriptions")]
     public class TestSuite2
@@ -72,6 +85,14 @@ namespace Hangfire.MissionControl.Tests.Web
         [Mission(Name = "Mission #3", Description = "This is very important mission")]
         public static string DoAnotherJob(
             [MissionParam(Description = "Customer name", DefaultValue = "Jack")] string customerName) => "success2";
+
+        [Mission(Name = "Mission #4", Description = "This is JSON job")]
+        public static string DoJsonJob(
+            [MissionParam(Description = "This is 1st foo")] Foo foo1,
+            [MissionParam(Description = "This is 2nd foo", DefaultValue = "{\"id\":1}")] Foo foo2)
+        {
+            return "success";
+        }
     }
 
     [MissionLauncher(CategoryName = "Queueing")]
