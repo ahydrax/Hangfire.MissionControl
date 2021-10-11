@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Hangfire.Dashboard;
 
 namespace Hangfire.MissionControl.Dashboard.Pages.Controls

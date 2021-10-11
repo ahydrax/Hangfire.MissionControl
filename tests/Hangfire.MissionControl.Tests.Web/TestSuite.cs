@@ -72,6 +72,12 @@ namespace Hangfire.MissionControl.Tests.Web
         public int Id { get; set; }
         public string Baz { get; set; }
     }
+
+    public class TreeExample
+    {
+        public TreeExample NodeA { get; set; }
+        public TreeExample NodeB { get; set; }
+    }
     
     [MissionLauncher(CategoryName = "Descriptions")]
     public class TestSuite2
@@ -90,6 +96,13 @@ namespace Hangfire.MissionControl.Tests.Web
         public static string DoJsonJob(
             [MissionParam(Description = "This is 1st foo")] Foo foo1,
             [MissionParam(Description = "This is 2nd foo", DefaultValue = "{\"id\":1}")] Foo foo2)
+        {
+            return "success";
+        }
+        
+        [Mission(Name = "Mission #5", Description = "This is JSON job (stack overflow regression)")]
+        public static string DoJsonJobRegression(
+            [MissionParam(Description = "This is tree")] TreeExample tree)
         {
             return "success";
         }

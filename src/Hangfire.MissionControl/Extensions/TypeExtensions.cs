@@ -5,18 +5,24 @@ namespace Hangfire.MissionControl.Extensions
 {
     internal static class TypeExtensions
     {
-        public static object CreateSampleInstance(this Type type)
+        private const int SampleMaxDepth = 5;
+
+        public static object CreateSampleInstance(this Type type) => type.CreateSampleInstanceInternal(0, SampleMaxDepth);
+
+        private static object CreateSampleInstanceInternal(this Type type, int currentDepth, int maxDepth)
         {
+            if (currentDepth > maxDepth) return GetDefaultValue(type);
+
             var instance = Activator.CreateInstance(type);
 
-            Type propertyType;
             foreach (var property in type.GetProperties())
             {
-                propertyType = property.PropertyType;
+                var propertyType = property.PropertyType;
 
                 if (propertyType.CanBeInstantiated())
                 {
-                    type.GetProperty(property.Name).SetValue(instance, propertyType.CreateSampleInstance());
+                    type.GetProperty(property.Name).SetValue(instance,
+                        propertyType.CreateSampleInstanceInternal(currentDepth + 1, SampleMaxDepth));
                 }
 
                 if (typeof(IEnumerable).IsAssignableFrom(propertyType)
@@ -27,7 +33,11 @@ namespace Hangfire.MissionControl.Extensions
                         : propertyType.GenericTypeArguments[0];
 
                     var array = Array.CreateInstance(elementType, 1);
-                    array.SetValue(elementType.CanBeInstantiated() ? elementType.CreateSampleInstance() : default, 0);
+                    array.SetValue(
+                        elementType.CanBeInstantiated()
+                            ? elementType.CreateSampleInstanceInternal(currentDepth + 1, SampleMaxDepth)
+                            : GetDefaultValue(elementType), 
+                        0);
                     type.GetProperty(property.Name).SetValue(instance, array);
                 }
             }
@@ -35,7 +45,8 @@ namespace Hangfire.MissionControl.Extensions
             return instance;
         }
 
-        public static bool CanBeInstantiated(this Type type) =>
-            type.IsClass && type.GetConstructor(Type.EmptyTypes) != null;
+        private static object GetDefaultValue(Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
+
+        public static bool CanBeInstantiated(this Type type) => type.IsClass && type.GetConstructor(Type.EmptyTypes) != null;
     }
 }
