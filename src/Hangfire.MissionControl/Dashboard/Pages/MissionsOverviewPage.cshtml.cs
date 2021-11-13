@@ -93,7 +93,7 @@ WriteLiteral("\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
             
             #line default
             #line hidden
-WriteLiteral("\"/>\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
+WriteLiteral("\" />\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
 
 
             
@@ -103,7 +103,7 @@ WriteLiteral("\"/>\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"");
             
             #line default
             #line hidden
-WriteLiteral("\"/>\r\n<script>\r\n    var baseUrl = \"");
+WriteLiteral("\" />\r\n<script>\r\n    var baseUrl = \"");
 
 
             
@@ -239,22 +239,22 @@ WriteLiteral("            <div class=\"panel panel-default\">\r\n               
             #line default
             #line hidden
 WriteLiteral("-panel\" aria-expanded=\"false\">\r\n                            <h3 class=\"panel-titl" +
-"e\">");
+"e\">\r\n                                ");
 
 
             
-            #line 48 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
-                                               Write(mission.Name);
+            #line 49 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                           Write(mission.Name);
 
             
             #line default
             #line hidden
-WriteLiteral("</h3>\r\n                        </a>\r\n                    </div>\r\n                " +
-"</div>\r\n                <div id=\"");
+WriteLiteral("\r\n                            </h3>\r\n                        </a>\r\n              " +
+"      </div>\r\n                </div>\r\n                <div id=\"");
 
 
             
-            #line 52 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 54 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     Write(mission.Id);
 
             
@@ -264,7 +264,7 @@ WriteLiteral("-panel\" class=\"panel-body collapse\">\r\n");
 
 
             
-            #line 53 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 55 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                      if (!string.IsNullOrWhiteSpace(mission.Description))
                     {
 
@@ -275,7 +275,7 @@ WriteLiteral("                        <p>");
 
 
             
-            #line 55 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 57 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                       Write(mission.Description);
 
             
@@ -285,7 +285,7 @@ WriteLiteral("</p>\r\n");
 
 
             
-            #line 56 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 58 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     }
 
             
@@ -295,7 +295,7 @@ WriteLiteral("\r\n");
 
 
             
-            #line 58 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 60 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                       
                         var snippetStyle = IsReadOnly ? "margin-bottom: 0px" : "";
                     
@@ -303,32 +303,61 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("                    <div class=\"job-snippet\" style=\"");
-
-
-            
-            #line 61 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
-                                               Write(snippetStyle);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\">\r\n                        <div class=\"job-snippet-code\">\r\n                     " +
-"       <pre><code>");
-
 
             
             #line 63 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
-                                  Write(MissionRenderer.RenderMission(mission.MethodInfo));
+                     if (options.HideCodeSnippet is false)
+                    {
 
             
             #line default
             #line hidden
-WriteLiteral("</code></pre>\r\n                        </div>\r\n                    </div>\r\n");
+WriteLiteral("                        <div class=\"job-snippet\" style=\"");
 
 
             
-            #line 66 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 65 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                                   Write(snippetStyle);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\">\r\n                            <div class=\"job-snippet-code\">\r\n                 " +
+"               <kbd style=\"float: right\"><span class=\"glyphicon glyphicon-consol" +
+"e\"></span>&nbsp;queue:&nbsp;");
+
+
+            
+            #line 67 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                                                                                                         Write(mission.Queue ?? "default");
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</kbd>\r\n                                <pre><code>");
+
+
+            
+            #line 68 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                                      Write(MissionRenderer.RenderMission(mission.MethodInfo));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</code></pre>\r\n                            </div>\r\n                        </div>" +
+"\r\n");
+
+
+            
+            #line 71 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+                    }
+
+            
+            #line default
+            #line hidden
+
+            
+            #line 72 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                      if (!IsReadOnly)
                     {
 
@@ -339,7 +368,7 @@ WriteLiteral("                        <form id=\"");
 
 
             
-            #line 68 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 74 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                              Write(mission.Id);
 
             
@@ -349,7 +378,7 @@ WriteLiteral("\" autocomplete=\"off\">\r\n");
 
 
             
-            #line 69 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 75 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                              foreach (var parameter in mission.MethodInfo.GetParameters())
                             {
                                 var control = ControlFactory.CreateControl(parameter);
@@ -367,7 +396,7 @@ WriteLiteral("                                <div class=\"form-group\">\r\n    
 
 
             
-            #line 78 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 84 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                Write(Html.RenderPartial(control));
 
             
@@ -377,7 +406,7 @@ WriteLiteral("\r\n                                </div>\r\n");
 
 
             
-            #line 80 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 86 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                             }
 
             
@@ -388,7 +417,7 @@ WriteLiteral("\r\n                            <button type=\"button\" class=\"bt
 
 
             
-            #line 82 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 88 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                                                                                                  Write(mission.Id);
 
             
@@ -398,7 +427,7 @@ WriteLiteral("\');\">Enqueue</button>\r\n                        </form>\r\n");
 
 
             
-            #line 84 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 90 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     }
 
             
@@ -408,7 +437,7 @@ WriteLiteral("                </div>\r\n                <div id=\"");
 
 
             
-            #line 86 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 92 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
                     Write(mission.Id);
 
             
@@ -418,7 +447,7 @@ WriteLiteral("-alerts\" class=\"panel-footer hidden\"></div>\r\n            </di
 
 
             
-            #line 88 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
+            #line 94 "..\..\Dashboard\Pages\MissionsOverviewPage.cshtml"
         }
 
             

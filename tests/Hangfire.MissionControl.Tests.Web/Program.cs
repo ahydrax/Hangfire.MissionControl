@@ -14,7 +14,8 @@ builder.Services.AddHangfire(configuration =>
     configuration.UseMissionControl(
         new MissionControlOptions
         {
-            RequireConfirmation = false
+            RequireConfirmation = false,
+            HideCodeSnippet = false
         },
         typeof(TestSuite).Assembly);
 });
