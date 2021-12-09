@@ -1,10 +1,9 @@
-﻿namespace Hangfire.MissionControl.Launching
+﻿namespace Hangfire.MissionControl.Launching;
+
+internal enum ErrorType
 {
-    internal enum ErrorType
-    {
-        No,
-        Missing,
-        Invalid,
-        Unsupported
-    }
+    No,
+    Missing,
+    Invalid,
+    Unsupported
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using Hangfire.Annotations;
+﻿namespace Hangfire.MissionControl;
 
-namespace Hangfire.MissionControl
+[PublicAPI]
+[AttributeUsage(AttributeTargets.Method)]
+public class MissionAttribute : Attribute
 {
-    [PublicAPI]
-    [AttributeUsage(AttributeTargets.Method)]
-    public class MissionAttribute : Attribute
-    {
-        public string Name { get; set; }
-        public string Queue { get; set; }
-        public string Description { get; set; }
-    }
+    public string Name { get; set; }
+    public string Queue { get; set; }
+    public string Description { get; set; }
 }

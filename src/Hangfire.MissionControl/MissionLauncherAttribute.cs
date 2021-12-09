@@ -1,12 +1,8 @@
-﻿using System;
-using Hangfire.Annotations;
+﻿namespace Hangfire.MissionControl;
 
-namespace Hangfire.MissionControl
+[PublicAPI]
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
+public class MissionLauncherAttribute : Attribute
 {
-    [PublicAPI]
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
-    public class MissionLauncherAttribute : Attribute
-    {
-        public string CategoryName { get; set; }
-    }
+    public string CategoryName { get; set; }
 }

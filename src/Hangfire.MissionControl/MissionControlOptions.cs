@@ -1,11 +1,8 @@
-﻿using Hangfire.Annotations;
+﻿namespace Hangfire.MissionControl;
 
-namespace Hangfire.MissionControl
+[PublicAPI]
+public sealed class MissionControlOptions
 {
-    [PublicAPI]
-    public sealed class MissionControlOptions
-    {
-        public bool RequireConfirmation { get; set; }
-        public bool HideCodeSnippet { get; set; }
-    }
+    public bool RequireConfirmation { get; set; }
+    public bool HideCodeSnippet { get; set; }
 }
