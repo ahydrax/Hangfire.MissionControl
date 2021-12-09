@@ -4,7 +4,7 @@ namespace Hangfire.MissionControl.Extensions;
 
 internal static class TypeExtensions
 {
-    private const int SampleMaxDepth = 5;
+    private const int SampleMaxDepth = 3;
 
     public static object CreateSampleInstance(this Type type) => type.CreateSampleInstanceInternal(0, SampleMaxDepth);
 
@@ -17,27 +17,27 @@ internal static class TypeExtensions
         foreach (var property in type.GetProperties())
         {
             var propertyType = property.PropertyType;
-
+            var propertyInfo = type.GetProperty(property.Name)!;
+            
             if (propertyType.CanBeInstantiated())
             {
-                type.GetProperty(property.Name).SetValue(instance,
+                propertyInfo.SetValue(instance,
                     propertyType.CreateSampleInstanceInternal(currentDepth + 1, SampleMaxDepth));
             }
 
-            if (typeof(IEnumerable).IsAssignableFrom(propertyType)
-                && propertyType != typeof(string))
+            if (typeof(IEnumerable).IsAssignableFrom(propertyType) && propertyType != typeof(string))
             {
                 var elementType = propertyType.IsArray
-                    ? propertyType.GetElementType()
+                    ? propertyType.GetElementType()!
                     : propertyType.GenericTypeArguments[0];
 
                 var array = Array.CreateInstance(elementType, 1);
                 array.SetValue(
                     elementType.CanBeInstantiated()
                         ? elementType.CreateSampleInstanceInternal(currentDepth + 1, SampleMaxDepth)
-                        : GetDefaultValue(elementType), 
+                        : GetDefaultValue(elementType),
                     0);
-                type.GetProperty(property.Name).SetValue(instance, array);
+                propertyInfo.SetValue(instance, array);
             }
         }
 

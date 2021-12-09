@@ -20,7 +20,7 @@ public class JsonControl : RazorPage
         var description = missionParam?.Description ?? Parameter.Name;
         var defaultValue = missionParam?.DefaultValue?.ToString()
                            ?? JsonConvert.SerializeObject(Parameter.ParameterType.CreateSampleInstance());
-        var sampleJson = defaultValue.JsonPretiffy();
+        var sampleJson = defaultValue.JsonPrettify();
 
         WriteLiteral("<div class=\"input-group\">");
         WriteLiteral($"<div class=\"input-group-addon\">{Parameter.Name}</div>");
