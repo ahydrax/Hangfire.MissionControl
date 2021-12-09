@@ -26,7 +26,7 @@ app.UseDeveloperExceptionPage();
 app.UseHangfireDashboard("/readonly",
     new DashboardOptions
     {
-        IsReadOnlyFunc = ctx => true
+        IsReadOnlyFunc = _ => true
     });
 app.UseHangfireDashboard("",
     new DashboardOptions

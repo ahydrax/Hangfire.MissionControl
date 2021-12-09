@@ -25,10 +25,20 @@ public class EmailSenderMissions
 ```
 * Setup dashboard code
 ```csharp
-// If you use ASP .NET Core
-services.AddHangfire(configuration => configuration.UseMissionControl(typeof(EmailSenderMissions).Assembly));
+// ASP.NET Core
+services.AddHangfire(configuration =>
+{
+    ...
+    configuration.UseMissionControl(
+        new MissionControlOptions
+        {
+            RequireConfirmation = false, // disables confirmation popup
+            HideCodeSnippet = false // hides code snippet and queue on missions page
+        },
+        typeof(TestSuite).Assembly);
+});
 
-// If you use console application
+// Or console application
 GlobalConfiguration.Configuration.UseMissionControl(typeof(EmailSenderMissions).Assembly);
 ```
 
