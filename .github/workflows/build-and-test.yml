@@ -9,14 +9,20 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-      
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - name: Setup dotnet 6.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: false
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
