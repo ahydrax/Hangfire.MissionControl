@@ -1,31 +1,59 @@
 ﻿global using Hangfire.Annotations;
 global using System;
 global using System.Linq;
-using System.Reflection;
 using Hangfire.Dashboard;
 using Hangfire.MissionControl.Dashboard.Content;
 using Hangfire.MissionControl.Dashboard.Pages;
 using Hangfire.MissionControl.Launching;
 using Hangfire.MissionControl.Mapping;
+using Hangfire.MissionControl.Model;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Hangfire.MissionControl;
 
 public static class MissionControlBootstrapperExtensions
 {
+    private static readonly MissionControlOptions _defaultOptions = new() { RequireConfirmation = true };
+
     [PublicAPI]
     public static IGlobalConfiguration UseMissionControl(
         this IGlobalConfiguration configuration,
         params Assembly[] missionAssemblies)
-        => configuration.UseMissionControl(new MissionControlOptions { RequireConfirmation = true }, missionAssemblies);
+        => configuration.UseMissionControl(_defaultOptions, missionAssemblies);
 
     [PublicAPI]
     public static IGlobalConfiguration UseMissionControl(
         this IGlobalConfiguration configuration,
         MissionControlOptions options,
         params Assembly[] missionAssemblies)
-    {
-        var map = MissionMapBuilder.BuildMap(missionAssemblies);
+     => configuration.UseMissionControl(options, MissionMapBuilder.BuildMap(missionAssemblies));
 
+    [PublicAPI]
+    public static IGlobalConfiguration UseMissionControl(
+        this IGlobalConfiguration configuration,
+        IDictionary<string, Mission> missions)
+        => configuration.UseMissionControl(_defaultOptions, missions);
+
+    [PublicAPI]
+    public static IGlobalConfiguration UseMissionControl(
+        this IGlobalConfiguration configuration,
+        MissionControlOptions options,
+        IDictionary<string, Mission> missions)
+        => configuration.UseMissionControl(options, new MissionMap(missions));
+
+    [PublicAPI]
+    public static IGlobalConfiguration UseMissionControl(
+        this IGlobalConfiguration configuration,
+        MissionMap map)
+        => configuration.UseMissionControl(_defaultOptions, map);
+
+    [PublicAPI]
+    public static IGlobalConfiguration UseMissionControl(
+        this IGlobalConfiguration configuration,
+        MissionControlOptions options,
+        MissionMap map)
+    {
         DashboardRoutes.Routes.AddRazorPage("/missions",
             x => new MissionsOverviewPage(map.MissionCategories.FirstOrDefault().Key ?? "default", map, options));
         DashboardRoutes.Routes.AddRazorPage("/missions/(?<categoryId>.+)",

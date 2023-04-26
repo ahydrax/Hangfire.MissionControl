@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hangfire.MissionControl.Model;
 
-internal sealed class Mission
+public sealed class Mission
 {
     public const string IdField = "id";
     public string Id { get; }
@@ -15,12 +15,32 @@ internal sealed class Mission
     public MethodInfo MethodInfo { get; }
 
     public Mission(MissionLauncherAttribute launcherAttribute, MissionAttribute missionAttribute, MethodInfo methodInfo)
+        : this(
+             methodInfo,
+             missionAttribute.Name ?? methodInfo.Name,
+             launcherAttribute.CategoryName ?? methodInfo.DeclaringType?.Name ?? "Default",
+             missionAttribute.Queue,
+             missionAttribute.Description)
+    {
+    }
+
+    public Mission(Delegate function, string name, string categoryName = "Default", string queue = "default", string description = "")
+        : this(
+             function.GetMethodInfo(),
+             name,
+             categoryName,
+             queue,
+             description)
+    {
+    }
+
+    public Mission(MethodInfo methodInfo, string? name = null, string categoryName = "Default", string queue = "default", string description = "")
     {
         Id = GenerateId(methodInfo);
-        CategoryName = launcherAttribute.CategoryName ?? methodInfo.DeclaringType?.Name ?? "Default";
-        Name = missionAttribute.Name ?? methodInfo.Name;
-        Queue = missionAttribute.Queue ?? "default";
-        Description = missionAttribute.Description;
+        CategoryName = categoryName;
+        Name = name ?? methodInfo.Name;
+        Queue = queue;
+        Description = description;
         MethodInfo = methodInfo;
     }
 
