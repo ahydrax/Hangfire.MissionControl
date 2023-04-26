@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <RazorSrcFiles Include="Dashboard\Pages\*.cshtml" />
+	<RazorSrcFiles Remove="Dashboard\Pages\MissionsOverviewPage.cshtml" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -33,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <RazorSrcFiles Remove="Dashboard\Pages\MissionsOverviewPage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.css" />
     <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.js" />
     <EmbeddedResource Include="Dashboard\Content\missions.css" />
@@ -45,13 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.Core" Version="[1.7.3, 1.8]" />
-    <PackageReference Include="RazorGenerator.MsBuild" Version="2.4.7">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="RazorGenerator.Templating" Version="2.4.7">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Hangfire.Core" />
+    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="all" />
+    <PackageReference Include="RazorGenerator.Templating" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
