@@ -5,6 +5,7 @@ using Hangfire.MissionControl.Tests.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLogging();
 builder.Services.AddTransient<ITestSuite4, TestSuite4>();
 builder.Services.AddHangfire(configuration =>
 {

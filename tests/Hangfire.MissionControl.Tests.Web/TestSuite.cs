@@ -140,3 +140,20 @@ public static class EventMigrator
     [Mission(Name = "[2018-11-12] Migrate events db", Description = "Add event specific fields", Queue = "migrations")]
     public static string Migrate() => "success";
 }
+
+[MissionLauncher(CategoryName = "Integration")]
+public class DependencyInjectionMission
+{
+    private readonly ILogger<DependencyInjectionMission> _logger;
+
+    public DependencyInjectionMission(ILogger<DependencyInjectionMission> logger)
+    {
+        _logger = logger;
+    }
+
+    [Mission]
+    public void DoLogging()
+    {
+        _logger.LogInformation("Logged");
+    }
+}
