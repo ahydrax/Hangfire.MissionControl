@@ -7,11 +7,12 @@ namespace Hangfire.MissionControl.Dashboard.Pages;
 
 internal static class MissionRenderer
 {
-    private static readonly ConcurrentDictionary<MethodInfo, NonEscapedString> Cache = new ConcurrentDictionary<MethodInfo, NonEscapedString>();
+    private static readonly Type MissingType = typeof(object);
+    private static readonly ConcurrentDictionary<MethodInfo, NonEscapedString> Cache = new();
 
     public static NonEscapedString RenderMission(MethodInfo methodInfo)
     {
-        if (Cache.ContainsKey(methodInfo)) return Cache[methodInfo];
+        if (Cache.TryGetValue(methodInfo, out var mission)) return mission;
 
         var rendered = RenderInternal(methodInfo);
         Cache.TryAdd(methodInfo, rendered);
@@ -21,15 +22,17 @@ internal static class MissionRenderer
 
     private static NonEscapedString RenderInternal(MethodInfo methodInfo)
     {
-        var declaringType = methodInfo.DeclaringType;
+        var declaringType = methodInfo.DeclaringType ?? MissingType;
         var parameters = methodInfo.GetParameters();
         var returnType = methodInfo.ReturnType;
 
         var builder = new StringBuilder();
 
-        var namespaces = parameters.Select(x => x.ParameterType)
+        string[] namespaces = parameters
+            .Select(x => x.ParameterType)
             .Concat(new[] { declaringType, returnType })
-            .Select(x => x.Namespace)
+            .Select(x => x.Namespace!)
+            .Where(x => x != null)
             .Distinct()
             .OrderBy(x => x)
             .ToArray();
@@ -54,9 +57,9 @@ internal static class MissionRenderer
     private static void AppendNamespace(StringBuilder builder, string @namespace)
     {
         builder.Append(Keyword("using"));
-        builder.Append(" ");
+        builder.Append(' ');
         builder.Append(@namespace);
-        builder.Append(";");
+        builder.Append(';');
         builder.AppendLine();
     }
 

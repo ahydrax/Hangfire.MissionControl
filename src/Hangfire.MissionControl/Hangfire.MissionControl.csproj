@@ -1,49 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>10</LangVersion>
-  </PropertyGroup>
+    <ItemGroup>
+        <RazorSrcFiles Include="Dashboard\Pages\*.cshtml"/>
+        <RazorSrcFiles Remove="Dashboard\Pages\MissionsOverviewPage.cshtml"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <RazorSrcFiles Include="Dashboard\Pages\*.cshtml" />
-	<RazorSrcFiles Remove="Dashboard\Pages\MissionsOverviewPage.cshtml" />
-  </ItemGroup>
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <Description>A plugin for Hangfire that enables you to launch jobs manually.</Description>
+        <PackageTags>hangfire manual jobs</PackageTags>
+        <Authors>Viktor Svyatokha (@ahydrax) and contributors</Authors>
+        <PackageProjectUrl>https://github.com/ahydrax/Hangfire.MissionControl</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/ahydrax/Hangfire.MissionControl/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/ahydrax/Hangfire.MissionControl</RepositoryUrl>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <IsPackable>true</IsPackable>
-    <Description>A plugin for Hangfire that enables you to launch jobs manually.</Description>
-    <PackageTags>hangfire manual jobs</PackageTags>
-    <Authors>Viktor Svyatokha (@ahydrax)</Authors>
-    <PackageProjectUrl>https://github.com/ahydrax/Hangfire.MissionControl</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/ahydrax/Hangfire.MissionControl/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Viktor Svyatokha (@ahydrax)</Copyright>
-    <RepositoryUrl>https://github.com/ahydrax/Hangfire.MissionControl</RepositoryUrl>
-  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Hangfire.Core"/>
+        <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="all"/>
+        <PackageReference Include="RazorGenerator.Templating" PrivateAssets="all"/>
+    </ItemGroup>
 
-  <PropertyGroup>
-    <RazorViewsCodeGenDirectory>$(MsBuildProjectDirectory)\</RazorViewsCodeGenDirectory>
-  </PropertyGroup>
+    <PropertyGroup>
+        <RazorViewsCodeGenDirectory>$(MsBuildProjectDirectory)\</RazorViewsCodeGenDirectory>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.css" />
-    <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.js" />
-    <None Remove="Dashboard\Content\missions.css" />
-    <None Remove="Dashboard\Content\missions.js" />
-    <None Remove="Dashboard\Content\moment.min.js" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.css"/>
+        <None Remove="Dashboard\Content\bootstrap-datetimepicker.min.js"/>
+        <None Remove="Dashboard\Content\missions.css"/>
+        <None Remove="Dashboard\Content\missions.js"/>
+        <None Remove="Dashboard\Content\moment.min.js"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.css" />
-    <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.js" />
-    <EmbeddedResource Include="Dashboard\Content\missions.css" />
-    <EmbeddedResource Include="Dashboard\Content\missions.js" />
-    <EmbeddedResource Include="Dashboard\Content\moment.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Hangfire.Core" />
-    <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="all" />
-    <PackageReference Include="RazorGenerator.Templating" PrivateAssets="all" />
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.css"/>
+        <EmbeddedResource Include="Dashboard\Content\bootstrap-datetimepicker.min.js"/>
+        <EmbeddedResource Include="Dashboard\Content\missions.css"/>
+        <EmbeddedResource Include="Dashboard\Content\missions.js"/>
+        <EmbeddedResource Include="Dashboard\Content\moment.min.js"/>
+    </ItemGroup>
 </Project>

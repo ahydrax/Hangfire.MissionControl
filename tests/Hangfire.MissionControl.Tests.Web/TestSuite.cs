@@ -63,20 +63,20 @@ public enum BType
 public class Foo
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public Bar[] Bars { get; set; }
+    public string Name { get; set; } = null!;
+    public Bar[] Bars { get; set; }  = null!;
 }
 
 public class Bar
 {
     public int Id { get; set; }
-    public string Baz { get; set; }
+    public string Baz { get; set; } = null!;
 }
 
 public class TreeExample
 {
-    public TreeExample NodeA { get; set; }
-    public TreeExample NodeB { get; set; }
+    public TreeExample NodeA { get; set; } = null!;
+    public TreeExample NodeB { get; set; } = null!;
 }
 
 [MissionLauncher(CategoryName = "Descriptions")]

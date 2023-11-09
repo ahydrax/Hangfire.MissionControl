@@ -4,5 +4,5 @@
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
 public class MissionLauncherAttribute : Attribute
 {
-    public string CategoryName { get; set; }
+    public string? CategoryName { get; set; }
 }

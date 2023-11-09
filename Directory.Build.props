@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net6.0;net7.0</TargetFrameworks>
+        <LangVersion>11</LangVersion>
+        <Nullable>enable</Nullable>
+        <AnalysisLevel>latest-Recommended</AnalysisLevel>
+        <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+        <NoWarn>1591;1701;1702;1705;CA1707;CA1711;CA1716;CA1725;CA1816;CA1848;CA1850;CA2201;CA2208;CA1852;CA5350</NoWarn>
+        <WarningsAsErrors>
+            CS1998;CS4014; <!--Async without await-->
+            Nullable
+        </WarningsAsErrors>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+</Project>

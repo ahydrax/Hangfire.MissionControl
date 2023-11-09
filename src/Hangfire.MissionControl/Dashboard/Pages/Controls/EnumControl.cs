@@ -29,7 +29,7 @@ public class EnumControl : RazorPage
             var enumValueName = Enum.GetName(enumType, enumValue);
             var description = GetDescription(enumType, enumValueName);
             var value = enumValue.ToString();
-            var selected = defaultValue.Equals(enumValue) ? "selected" : string.Empty;
+            var selected = object.Equals(enumValue, defaultValue) ? "selected" : string.Empty;
             var label = enumValueName;
             if (description != null)
             {
@@ -42,8 +42,10 @@ public class EnumControl : RazorPage
         WriteLiteral("</div>");
     }
 
-    private static string GetDescription(Type enumType, string valueName)
-        => enumType.GetField(valueName)
+    private static string? GetDescription(Type enumType, string? valueName)
+        =>
+        valueName is not null ?
+        enumType.GetField(valueName)
             ?.GetCustomAttribute<DescriptionAttribute>()
-            ?.Description;
+            ?.Description : null;
 }

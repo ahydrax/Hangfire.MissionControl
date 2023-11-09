@@ -4,9 +4,9 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Hangfire.AspNetCore" Version="1.7.34" />
-    <PackageVersion Include="Hangfire.Core" Version="[1.7.34, 1.8]" />
-    <PackageVersion Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageVersion Include="Hangfire.AspNetCore" Version="[1.7.34, 1.9)" />
+    <PackageVersion Include="Hangfire.Core" Version="[1.7.34, 1.9)" />
+    <PackageVersion Include="Hangfire.MemoryStorage" Version="[1.7, 1.9)" />
     <PackageVersion Include="RazorGenerator.MsBuild" Version="2.5.0" />
     <PackageVersion Include="RazorGenerator.Templating" Version="2.4.7" />
   </ItemGroup>

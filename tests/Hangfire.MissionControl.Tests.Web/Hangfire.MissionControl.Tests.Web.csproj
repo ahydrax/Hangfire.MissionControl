@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>10</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0</TargetFrameworks>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Hangfire.AspNetCore" />
-    <PackageReference Include="Hangfire.MemoryStorage" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Hangfire.AspNetCore"/>
+        <PackageReference Include="Hangfire.MemoryStorage"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Hangfire.MissionControl\Hangfire.MissionControl.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Hangfire.MissionControl\Hangfire.MissionControl.csproj"/>
+    </ItemGroup>
 
 </Project>

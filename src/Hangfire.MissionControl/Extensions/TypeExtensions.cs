@@ -1,14 +1,12 @@
-﻿using System.Collections;
-
-namespace Hangfire.MissionControl.Extensions;
+﻿namespace Hangfire.MissionControl.Extensions;
 
 internal static class TypeExtensions
 {
     private const int SampleMaxDepth = 3;
 
-    public static object CreateSampleInstance(this Type type) => type.CreateSampleInstanceInternal(0, SampleMaxDepth);
+    public static object? CreateSampleInstance(this Type type) => type.CreateSampleInstanceInternal(0, SampleMaxDepth);
 
-    private static object CreateSampleInstanceInternal(this Type type, int currentDepth, int maxDepth)
+    private static object? CreateSampleInstanceInternal(this Type type, int currentDepth, int maxDepth)
     {
         if (currentDepth > maxDepth) return GetDefaultValue(type);
 
@@ -18,7 +16,7 @@ internal static class TypeExtensions
         {
             var propertyType = property.PropertyType;
             var propertyInfo = type.GetProperty(property.Name)!;
-            
+
             if (propertyType.CanBeInstantiated())
             {
                 propertyInfo.SetValue(instance,
@@ -44,7 +42,8 @@ internal static class TypeExtensions
         return instance;
     }
 
-    private static object GetDefaultValue(Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
+    private static object? GetDefaultValue(Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
 
-    public static bool CanBeInstantiated(this Type type) => type.IsClass && type.GetConstructor(Type.EmptyTypes) != null;
+    public static bool CanBeInstantiated(this Type type) =>
+        type.IsClass && type.GetConstructor(Type.EmptyTypes) != null;
 }

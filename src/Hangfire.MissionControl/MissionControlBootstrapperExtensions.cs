@@ -1,6 +1,5 @@
 ﻿global using Hangfire.Annotations;
 global using System;
-global using System.Linq;
 using Hangfire.Dashboard;
 using Hangfire.MissionControl.Dashboard.Content;
 using Hangfire.MissionControl.Dashboard.Pages;
@@ -62,7 +61,7 @@ public static class MissionControlBootstrapperExtensions
 
         NavigationMenu.Items.Add(page => new MenuItem(MissionsOverviewPage.Title, page.Url.To(MissionsOverviewPage.PageRoute))
         {
-            Active = page.RequestPath.StartsWith(MissionsOverviewPage.PageRoute),
+            Active = page.RequestPath.StartsWith(MissionsOverviewPage.PageRoute, StringComparison.OrdinalIgnoreCase),
             Metric = new DashboardMetric("missions-count", x => new Metric(map.Missions.Count))
         });
 

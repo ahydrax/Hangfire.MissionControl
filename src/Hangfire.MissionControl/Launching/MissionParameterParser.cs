@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Threading;
 using Hangfire.MissionControl.Extensions;
 using Hangfire.Server;
 using Newtonsoft.Json;
@@ -8,102 +7,61 @@ namespace Hangfire.MissionControl.Launching;
 
 internal static class MissionParameterParser
 {
-    public static (object value, ErrorType error, bool ok) ParseParameter(Type parameterType, string parameterValue)
-    {
-        switch (parameterType)
+    private const string DateTimeParseFormat = "yyyy-MM-dd HH:mm";
+
+    // ReSharper disable once RedundantVerbatimPrefix
+    public static (bool ok, object? value, ErrorType error) ParseParameter(Type type, string @value) =>
+        type switch
         {
-            case var t when t == typeof(string):
-                return (parameterValue, ErrorType.No, true);
+            _ when type == typeof(string) => (true, value, ErrorType.No),
+            _ when type == typeof(bool) => TryParse(JsonConvert.DeserializeObject<bool>, value),
+            _ when type == typeof(byte) => TryParse(x => byte.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(sbyte) => TryParse(x => sbyte.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(char) => TryParse(x => x[0], value),
+            _ when type == typeof(decimal) => TryParse(x => decimal.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(double) => TryParse(x => double.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(float) => TryParse(x => float.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(int) => TryParse(x => int.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(uint) => TryParse(x => uint.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(long) => TryParse(x => long.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(ulong) => TryParse(x => ulong.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(short) => TryParse(x => short.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(ushort) => TryParse(x => ushort.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), value),
+            _ when type == typeof(DateTime) => TryParse(x => ParseDateTime(x), value),
+            _ when type == typeof(DateTimeOffset) => TryParse(x => ParseDateTimeOffset(x), value),
+            _ when type == typeof(Guid) => TryParse(Guid.Parse, value),
+            _ when type.IsEnum => TryParse(x => Enum.Parse(type, x), value),
+            _ when type == typeof(PerformContext) => (true, null, ErrorType.No),
+            _ when type == typeof(IJobCancellationToken) => (true, null, ErrorType.No),
+            _ when type == typeof(CancellationToken) => (true, null, ErrorType.No),
+            var t when t.CanBeInstantiated() => TryParse(x => JsonConvert.DeserializeObject(value, t), value),
+            _ => (false, null, ErrorType.Unsupported)
+        };
 
-            case var t when t == typeof(bool):
-                return TryParse(JsonConvert.DeserializeObject<bool>, parameterValue);
+    private static DateTime ParseDateTime(string x) =>
+        DateTimeOffset.ParseExact(x, DateTimeParseFormat, CultureInfo.InvariantCulture, DateTimeStyles.None).UtcDateTime;
 
-            case var t when t == typeof(byte):
-                return TryParse(x => byte.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), parameterValue);
+    private static DateTimeOffset ParseDateTimeOffset(string x) =>
+        DateTimeOffset.ParseExact(x, DateTimeParseFormat, CultureInfo.InvariantCulture, DateTimeStyles.None);
 
-            case var t when t == typeof(sbyte):
-                return TryParse(x => sbyte.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
+    private static (bool ok, object? value, ErrorType error) TryParse<TValue>(Func<string, TValue> parser, string value) =>
+        value switch
+        {
+            null => (false, null, ErrorType.Missing),
+            not null when string.IsNullOrWhiteSpace(value) => (false, null, ErrorType.Missing),
+            not null => TryParseNonNullValue(parser, value)
+        };
 
-            case var t when t == typeof(char):
-                return TryParse(x => x[0], parameterValue);
-
-            case var t when t == typeof(decimal):
-                return TryParse(x => decimal.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(double):
-                return TryParse(x => double.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(float):
-                return TryParse(x => float.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(int):
-                return TryParse(x => int.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), parameterValue);
-
-            case var t when t == typeof(uint):
-                return TryParse(x => uint.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), parameterValue);
-
-            case var t when t == typeof(long):
-                return TryParse(x => long.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture), parameterValue);
-
-            case var t when t == typeof(ulong):
-                return TryParse(x => ulong.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(short):
-                return TryParse(x => short.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(ushort):
-                return TryParse(x => ushort.Parse(x, NumberStyles.Any, CultureInfo.InvariantCulture),
-                    parameterValue);
-
-            case var t when t == typeof(DateTime):
-                return TryParse(
-                    x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None)
-                        .UtcDateTime,
-                    parameterValue);
-
-            case var t when t == typeof(DateTimeOffset):
-                return TryParse(
-                    x => DateTimeOffset.ParseExact(x, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None),
-                    parameterValue);
-
-            case var t when t == typeof(Guid):
-                return TryParse(Guid.Parse, parameterValue);
-                
-            case var t when t.IsEnum:
-                return TryParse(x => Enum.Parse(parameterType, x), parameterValue);
-
-            case var pctx when pctx == typeof(PerformContext):
-            case var jct when jct == typeof(IJobCancellationToken):
-            case var ct when ct == typeof(CancellationToken):
-                return (null, ErrorType.No, true);
-
-            case var t when t.CanBeInstantiated():
-                return TryParse(x => JsonConvert.DeserializeObject(parameterValue, t), parameterValue);
-
-            default:
-                return (null, ErrorType.Unsupported, false);
-        }
-    }
-
-    private static (object value, ErrorType error, bool ok) TryParse<TValue>(Func<string, TValue> parser, string value)
+    private static (bool ok, object? value, ErrorType error) TryParseNonNullValue<TValue>(Func<string, TValue> parser, string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            return (null, ErrorType.Missing, false);
-
         try
         {
             var deserializedValue = parser(value);
-            return (deserializedValue, ErrorType.No, true);
+            return (true, deserializedValue, ErrorType.No);
         }
         catch
         {
-            return (null, ErrorType.Invalid, false);
+            return (false, null, ErrorType.Invalid);
         }
     }
 }

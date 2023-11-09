@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Hangfire.Common;
 using Hangfire.Dashboard;
 using Hangfire.MissionControl.Model;
@@ -25,8 +23,8 @@ internal sealed class MissionLaunchDispatcher : IDashboardDispatcher
             context.Response.StatusCode = 401;
             return;
         }
-            
-        if (!"POST".Equals(context.Request.Method, StringComparison.InvariantCultureIgnoreCase))
+
+        if (!"POST".Equals(context.Request.Method, StringComparison.OrdinalIgnoreCase))
         {
             context.Response.StatusCode = 405;
             return;
@@ -72,23 +70,21 @@ internal sealed class MissionLaunchDispatcher : IDashboardDispatcher
         }
     }
 
-    private static async Task<(object[] parameters, (string fieldName, ErrorType error)[] errors)> CreateParameters(DashboardContext context, MethodInfo methodInfo)
+    private static async Task<(object?[] parameters, (string fieldName, ErrorType error)[] errors)> CreateParameters(
+        DashboardContext context,
+        MethodInfo methodInfo)
     {
         var parameters = methodInfo.GetParameters();
-        var result = new List<object>(parameters.Length);
+        var result = new List<object?>(parameters.Length);
         var errors = new List<(string fieldName, ErrorType error)>();
 
         foreach (var parameter in parameters)
         {
-            var parameterName = parameter.Name;
+            var parameterName = parameter.Name!;
             var parameterType = parameter.ParameterType;
             var parameterValue = (await context.Request.GetFormValuesAsync(parameterName)).LastOrDefault();
 
-            object value;
-            ErrorType error;
-            bool ok;
-
-            (value, error, ok) = MissionParameterParser.ParseParameter(parameterType, parameterValue);
+            var (ok, value, error) = MissionParameterParser.ParseParameter(parameterType, parameterValue ?? string.Empty);
 
             if (ok)
             {
