@@ -46,5 +46,4 @@
     <PackageReference Include="RazorGenerator.MsBuild" PrivateAssets="all" />
     <PackageReference Include="RazorGenerator.Templating" PrivateAssets="all" />
   </ItemGroup>
-
 </Project>
