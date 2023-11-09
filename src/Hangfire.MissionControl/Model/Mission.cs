@@ -28,8 +28,8 @@ public sealed class Mission
     public Mission(Delegate function,
         string name,
         string? categoryName = "Default",
-        string? queue = "default",
-        string? description = "")
+        string? queue = null,
+        string? description = null)
         : this(
             function.GetMethodInfo(),
             name,
@@ -42,8 +42,8 @@ public sealed class Mission
     public Mission(MethodInfo methodInfo,
         string? name = null,
         string? categoryName = "Default",
-        string? queue = "default",
-        string? description = "")
+        string? queue = null,
+        string? description = null)
     {
         Id = GenerateId(methodInfo);
         CategoryName = categoryName ?? throw new ArgumentNullException(nameof(categoryName));
