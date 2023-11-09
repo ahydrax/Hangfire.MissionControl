@@ -2,14 +2,15 @@
 
 namespace Hangfire.MissionControl.Model;
 
-internal class MissionMap
+public class MissionMap
 {
-    public Dictionary<string, int> MissionCategories { get; }
-    public Dictionary<string, Mission> Missions { get; }
+    public IDictionary<string, int> MissionCategories { get; }
+    public IDictionary<string, Mission> Missions { get; }
 
-    public MissionMap(Dictionary<string, Mission> missions)
+    public MissionMap(IDictionary<string, Mission> missions)
     {
-        Missions = missions.OrderBy(x => x.Value.Name)
+        Missions = missions
+            .OrderBy(x => x.Value.Name)
             .ToDictionary(x => x.Key, x => x.Value);
 
         MissionCategories = missions.Values
