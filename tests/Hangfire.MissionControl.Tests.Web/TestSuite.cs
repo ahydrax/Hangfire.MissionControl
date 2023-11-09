@@ -33,7 +33,7 @@ public class TestSuite
     public string DoJob(DateTime dataTime) => "success";
 
     [Mission]
-    public string DoJob(Guid guid) => $"success-{guid:D}";
+    public string DoJob(Guid g) => $"success-{g:D}";
 
     [Mission]
     public string DoJob([MissionParam(DefaultValue = AType.Blue)] AType aType, BType bType) => $"success-{aType:G}-{bType:G}";

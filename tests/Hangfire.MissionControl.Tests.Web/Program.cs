@@ -2,8 +2,6 @@
 using Hangfire.MemoryStorage;
 using Hangfire.MissionControl;
 using Hangfire.MissionControl.Tests.Web;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
